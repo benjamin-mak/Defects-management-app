@@ -1,0 +1,35 @@
+#banner {
+  border: 3px solid red;
+  height: 100px;
+}
+
+#login-pg,
+#signup-pg {
+  border: 1px solid red;
+  margin: 10px;
+}
+
+#login-btn,
+#signup-btn {
+  display: block;
+  margin: 20px auto;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-details-container {
+  border: 1px solid red;
+  text-align: center;
+  margin: 30px 300px;
+  padding: 30px 50px;
+}
+
+.login-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+}
