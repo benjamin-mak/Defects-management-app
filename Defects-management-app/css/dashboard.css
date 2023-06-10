@@ -1,0 +1,84 @@
+#banner {
+  height: 40px;
+  background-color: #0091d5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#home-btn,
+#profile-btn {
+  border: 3px solid red;
+  font-size: x-large;
+}
+
+#projects-tab {
+  background-color: antiquewhite;
+  position: fixed;
+  height: 100%;
+  width: 150px;
+  left: 0;
+  top: 40px;
+}
+
+#add-project {
+  border: 2px solid red;
+  padding: 5px;
+  margin: 5px;
+}
+
+#add-project:hover {
+  background-color: rgb(209, 139, 34);
+  cursor: pointer;
+}
+
+#main {
+  left: 150px;
+  top: 40px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+#issues-container {
+  border: 2px solid red;
+  padding: 10px;
+  width: 50%;
+}
+
+#chart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.banner-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.number {
+  border: 2px solid blue;
+  margin: 0 auto;
+  width: 100px;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+}
+
+.centre {
+  display: block;
+  margin: 0px auto 30px auto;
+  width: 300px;
+  text-align: center;
+}
+
+.charts {
+  border: 2px solid red;
+  padding: 10px;
+  width: 30%;
+  margin: 30px auto;
+}
