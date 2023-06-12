@@ -33,7 +33,7 @@
   cursor: pointer;
 }
 
-#main {
+#main-background {
   left: 150px;
   top: 40px;
   background-color: #f1f1f1;
@@ -42,15 +42,18 @@
   width: 100%;
 }
 
-#issues-container {
-  border: 2px solid red;
-  padding: 10px;
-  width: 50%;
+#main-container {
+  display: flex;
+  gap: 200px;
 }
 
-#chart-container {
-  display: flex;
-  justify-content: space-between;
+#total,
+#issues-month-box,
+#status-box {
+  border: 2px solid red;
+  padding: 10px;
+  width: 500px;
+  margin: 20px;
 }
 
 .banner-btns {
@@ -72,13 +75,5 @@
 .centre {
   display: block;
   margin: 0px auto 30px auto;
-  width: 300px;
   text-align: center;
-}
-
-.charts {
-  border: 2px solid red;
-  padding: 10px;
-  width: 30%;
-  margin: 30px auto;
 }
