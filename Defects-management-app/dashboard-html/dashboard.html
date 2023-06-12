@@ -18,57 +18,60 @@
       <h3 id="add-project">Projects</h3>
     </div>
 
-    <div id="main">
-      <div id="issues-container">
-        <div class="centre">
-          <h2>
-            Total number of issues
-            <div id="total">0</div>
-          </h2>
-        </div>
-        <div class="row">
-          <div class="number">
-            <h3>Open</h3>
-            <p id="open">0</p>
-          </div>
-          <div class="number">
-            <h3>Important</h3>
-            <p id="important">0</p>
-          </div>
-          <div class="number">
-            <h3>Closed</h3>
-            <p class="closed">0</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="chart-container">
-        <div class="charts">
-          <h2 style="text-align: center">Status</h2>
-          <div class="row">
-            <div class="number">
-              <h3>To assign</h3>
-              <p id="assign">0</p>
+    <div id="main-background">
+      <div id="main-container">
+        <div id="main-container-left">
+          <div id="total">
+            <div class="centre">
+              <h2>
+                Total number of issues
+                <div>0</div>
+              </h2>
             </div>
-            <div class="number">
-              <h3>To rectify</h3>
-              <p id="rectify">0</p>
-            </div>
-            <div class="number">
-              <h3>For inspection</h3>
-              <p id="inspection">0</p>
-            </div>
-            <div class="number">
-              <h3>Closed</h3>
-              <p class="closed">0</p>
+            <div class="row">
+              <div class="number">
+                <h3>Open</h3>
+                <p id="open">0</p>
+              </div>
+              <div class="number">
+                <h3>Important</h3>
+                <p id="important">0</p>
+              </div>
+              <div class="number">
+                <h3>Closed</h3>
+                <p class="closed">0</p>
+              </div>
             </div>
           </div>
-          <div>Chart</div>
+          <div id="issues-month-box">
+            <h2 style="text-align: center">Number of issues per month</h2>
+            <div style="text-align: center">Bar Chart</div>
+          </div>
         </div>
 
-        <div class="charts">
-          <h2 style="text-align: center">Number of issues per month</h2>
-          <div>Chart</div>
+        <div id="main-container-right">
+          <div id="status-box">
+            <h2 style="text-align: center">Status</h2>
+            <div class="row">
+              <div class="number">
+                <h3>To assign</h3>
+                <p id="assign">0</p>
+              </div>
+              <div class="number">
+                <h3>To rectify</h3>
+                <p id="rectify">0</p>
+              </div>
+              <div class="number">
+                <h3>For inspection</h3>
+                <p id="inspection">0</p>
+              </div>
+              <div class="number">
+                <h3>Closed</h3>
+                <p class="closed">0</p>
+              </div>
+            </div>
+            <div style="margin-top: 50px; text-align: center">Pie Chart</div>
+          </div>
         </div>
       </div>
     </div>
