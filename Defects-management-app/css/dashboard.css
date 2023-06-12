@@ -8,7 +8,8 @@
 }
 
 #home-btn,
-#profile-btn {
+#profile-btn,
+#logout-btn {
   border: 3px solid red;
   font-size: x-large;
 }
