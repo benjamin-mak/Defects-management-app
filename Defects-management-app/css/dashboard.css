@@ -60,7 +60,7 @@
 
 #project-name-popup-add {
   height: 30px;
-  margin: 30px auto 0 auto;
+  margin: 20px auto 0 auto;
   display: block;
 }
 
@@ -134,6 +134,12 @@
   height: 200px;
   max-width: 75%;
   padding: 10px;
+}
+
+#project-name-popup-error {
+  margin-top: 5px;
+  color: #ff0000;
+  font-style: italic;
 }
 
 .project-name-popup.active {
