@@ -1,0 +1,95 @@
+#banner {
+  height: 40px;
+  background-color: #0091d5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#home-btn,
+#profile-btn,
+#logout-btn,
+#add-issue-btn {
+  border: 3px solid red;
+  font-size: x-large;
+}
+
+#add-issue-btn:hover {
+  cursor: pointer;
+}
+
+#projects-tab {
+  background-color: antiquewhite;
+  position: fixed;
+  height: 100%;
+  width: 150px;
+  left: 0;
+  top: 40px;
+}
+
+#add-project {
+  border: 2px solid red;
+  padding: 5px;
+  margin: 5px 3px;
+}
+
+#main-background {
+  left: 150px;
+  top: 40px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.banner-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.project {
+  border: 2px solid red;
+  padding: 5px;
+  margin: 5px;
+}
+
+.issue-main-container {
+  border: 1px solid red;
+  padding: 20px;
+  margin: 20px;
+  width: 80%;
+  height: 250px;
+}
+
+.issue-sub-container {
+  display: flex;
+  gap: 100px;
+}
+
+.issue-btns {
+  float: right;
+  margin: -20px -20px 0 0;
+  display: flex;
+  gap: 2px;
+}
+
+.row {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.row-box {
+  border: 1px solid red;
+  padding: 4px;
+  width: 120px;
+  text-align: center;
+}
+
+.description {
+  margin-top: 10px;
+  border: 1px solid red;
+  padding: 4px;
+}

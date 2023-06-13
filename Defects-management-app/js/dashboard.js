@@ -32,7 +32,10 @@ const eventHandlers = {
     // add the project only if input project name is not blank
     if (projectName.trim()) {
       projectCount += 1;
-      const projectObject = { Name: projectName.trim() };
+      const projectObject = {
+        Name: projectName.trim(),
+        ProjectId: projectCount,
+      };
       projects.push(projectObject);
 
       // Display on dashboard
