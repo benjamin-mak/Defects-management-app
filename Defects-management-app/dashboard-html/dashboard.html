@@ -18,9 +18,24 @@
 
     <div id="projects-tab">
       <h3 id="add-project">Projects</h3>
+      <div class="project">Project 1</div>
     </div>
 
     <div id="main-background">
+      <!---Add projects-->
+      <div class="project-name-popup" id="project-name-popup-id">
+        <div class="project-name-popup-header">
+          <div style="font-size: x-large; font-weight: bold">Add project</div>
+          <button id="project-name-popup-close-btn">&#10006;</button>
+        </div>
+        <div class="project-name-popup-body">
+          <div style="font-weight: bold">Name</div>
+          <input class="project-name-popup-input" type="text" />
+        </div>
+        <button id="project-name-popup-add">Add</button>
+      </div>
+      <div id="overlay"></div>
+
       <div id="main-container">
         <div id="main-container-left">
           <div id="total">

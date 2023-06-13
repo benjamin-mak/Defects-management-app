@@ -9,7 +9,8 @@
 
 #home-btn,
 #profile-btn,
-#logout-btn {
+#logout-btn,
+#add-issue-btn {
   border: 3px solid red;
   font-size: x-large;
 }
@@ -26,7 +27,7 @@
 #add-project {
   border: 2px solid red;
   padding: 5px;
-  margin: 5px;
+  margin: 5px 3px;
 }
 
 #add-project:hover {
@@ -57,6 +58,40 @@
   margin: 20px;
 }
 
+#project-name-popup-add {
+  height: 30px;
+  margin: 30px auto 0 auto;
+  display: block;
+}
+
+#project-name-popup-close-btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+#project-name-popup-close-btn:hover {
+  background-color: #ff0000;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: 100ms ease-in-out;
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
 .banner-btns {
   display: flex;
   justify-content: space-between;
@@ -77,4 +112,51 @@
   display: block;
   margin: 0px auto 30px auto;
   text-align: center;
+}
+
+.project {
+  border: 2px solid red;
+  padding: 5px;
+  margin: 5px;
+}
+
+.project-name-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 100ms ease-in-out;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  width: 400px;
+  height: 200px;
+  max-width: 75%;
+  padding: 10px;
+}
+
+.project-name-popup.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.project-name-popup-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.project-name-popup-body {
+  margin: 20px;
+  text-align: center;
+}
+
+.project-name-popup-input {
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  height: 20px;
+  width: 90%;
 }
