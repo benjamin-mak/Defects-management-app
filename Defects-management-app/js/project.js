@@ -22,32 +22,48 @@ const eventHandlers1 = {
   // Updates an issue
   updateIssue: () => {
     document.querySelector(".update-btn").addEventListener("click", (e) => {
-      // selecting the issue-main-container node
-      let issueIdNum = Number(
-        e.target.parentNode.parentNode.getAttribute("id")
-      );
-      let issueId = e.target.parentNode.parentNode;
-      let p = issueId.querySelector("select.priority");
-      let s = issueId.querySelector("select.status");
-      //Check if issue is in the issues array
-      if (issuesArr.some((obj) => obj.issueNum === issueIdNum)) {
-        // Get index of that issue in the array
-        let index = issuesArr.findIndex((obj) => obj.issueNum === issueIdNum);
-        // Update priority
-        issuesArr[index].priority = p.options[p.selectedIndex].text;
-        // Update date
-        issuesArr[index].date = issueId.querySelector(".date-input").value;
-        // Update status
-        issuesArr[index].status = s.options[s.selectedIndex].text;
-      } else {
-        //If not create a new object and add to the issue array
-        let newIssueObj = {};
-        newIssueObj.issueNum = issueIdNum;
-        newIssueObj.priority = p.options[p.selectedIndex].text;
-        newIssueObj.date = issueId.querySelector(".date-input").value;
-        newIssueObj.status = s.options[s.selectedIndex].text;
-        issuesArr.push(newIssueObj);
-      }
+      updatePopupAdd();
+
+      document
+        .querySelector("#update-popup-close-btn")
+        .addEventListener("click", () => {
+          updatePopupRemove();
+        });
+
+      document
+        .querySelector("#update-popup-btn")
+        .addEventListener("click", () => {
+          // selecting the issue-main-container node
+          let issueIdNum = Number(
+            e.target.parentNode.parentNode.getAttribute("id")
+          );
+          let issueId = e.target.parentNode.parentNode;
+          let p = issueId.querySelector("select.priority");
+          let s = issueId.querySelector("select.status");
+          //Check if issue is in the issues array
+          if (issuesArr.some((obj) => obj.issueNum === issueIdNum)) {
+            // Get index of that issue in the array
+            let index = issuesArr.findIndex(
+              (obj) => obj.issueNum === issueIdNum
+            );
+            // Update priority
+            issuesArr[index].priority = p.options[p.selectedIndex].text;
+            // Update date
+            issuesArr[index].date = issueId.querySelector(".date-input").value;
+            // Update status
+            issuesArr[index].status = s.options[s.selectedIndex].text;
+          } else {
+            //If not create a new object and add to the issue array
+            let newIssueObj = {};
+            newIssueObj.issueNum = issueIdNum;
+            newIssueObj.priority = p.options[p.selectedIndex].text;
+            newIssueObj.date = issueId.querySelector(".date-input").value;
+            newIssueObj.status = s.options[s.selectedIndex].text;
+            issuesArr.push(newIssueObj);
+          }
+
+          updatePopupRemove();
+        });
     });
   },
 
@@ -107,6 +123,18 @@ const deletePopupAdd = () => {
 const deletePopupRemove = () => {
   document.querySelector("#delete-popup-id").classList.remove("active");
   document.querySelector("#overlay").classList.remove("active");
+};
+
+//Adds the confirm window when updating an issue
+const updatePopupAdd = () => {
+  document.querySelector("#update-popup-id").classList.add("active");
+  document.querySelector("#overlay2").classList.add("active");
+};
+
+//Removes the confirm window when updating an issue
+const updatePopupRemove = () => {
+  document.querySelector("#update-popup-id").classList.remove("active");
+  document.querySelector("#overlay2").classList.remove("active");
 };
 
 /* Global variables */

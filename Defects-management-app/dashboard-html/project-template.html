@@ -30,11 +30,20 @@
       <div class="delete-popup" id="delete-popup-id">
         <button id="delete-popup-close-btn">&#10006;</button>
         <div class="delete-popup-text">
-          <p>Are you sure you want to delete issue?</p>
+          <p>Are you sure you want to delete issue? This cannot be undone.</p>
         </div>
         <button id="delete-popup-btn">Delete</button>
       </div>
       <div id="overlay"></div>
+
+      <div class="update-popup" id="update-popup-id">
+        <button id="update-popup-close-btn">&#10006;</button>
+        <div class="update-popup-text">
+          <p>Click on confirm to update this issue.</p>
+        </div>
+        <button id="update-popup-btn">Confirm</button>
+      </div>
+      <div id="overlay2"></div>
 
       <!--Need to change the title for each project-->
       <h1 id="project-title">Title</h1>
