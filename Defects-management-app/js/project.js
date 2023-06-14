@@ -1,3 +1,12 @@
+const urlSearchParam = new URLSearchParams(window.location.search);
+const projectName = urlSearchParam.get("dynamicPage");
+console.log("urlSearchParam", urlSearchParam.get("dynamicPage"));
+
+
+document.querySelector("#project-title").textContent = projectName;
+const fetchData = mockDataObject[projectName];
+console.log("fetchData", fetchData);
+
 /**** Event handlers object ****/
 const eventHandlers1 = {
   //Add a new issue
@@ -33,6 +42,9 @@ const eventHandlers1 = {
       document
         .querySelector("#update-popup-btn")
         .addEventListener("click", () => {
+          //retrieve data from local storage
+          let issuesArr = getProjectData(projectName);
+
           // selecting the issue-main-container node
           let issueIdNum = Number(
             e.target.parentNode.parentNode.getAttribute("id")
@@ -60,6 +72,9 @@ const eventHandlers1 = {
             newIssueObj.date = issueId.querySelector(".date-input").value;
             newIssueObj.status = s.options[s.selectedIndex].text;
             issuesArr.push(newIssueObj);
+
+            // store data from the local storage
+            saveData(projectName,issuesArr);
           }
 
           updatePopupRemove();
@@ -140,7 +155,7 @@ const updatePopupRemove = () => {
 /* Global variables */
 let issueCount = 0;
 // Array of objects to store data
-const issuesArr = []; // { issueNum: 1, priority: "", date: "", status: "" }
+// const issuesArr = []; // { issueNum: 1, priority: "", date: "", status: "" }
 
 const priority = ["Low", "Medium", "High"];
 const status = ["To assign", "To rectify", "For inspection", "Closed"];

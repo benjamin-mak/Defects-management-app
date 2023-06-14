@@ -1,3 +1,5 @@
+console.log("localstorage", localStorage);
+
 /**** Event handlers object ****/
 const eventHandlers = {
   // Logouts and redirects to login page
@@ -41,7 +43,7 @@ const eventHandlers = {
       // Display on dashboard
       let newProjectA = document.createElement("a");
       newProjectA.textContent = projectName.trim();
-      newProjectA.href = "../dashboard-html/project-template.html";
+      newProjectA.href = `../dashboard-html/project-template.html?dynamicPage=${projectName.trim()}`;
 
       let newProjectDiv = document.createElement("div");
       newProjectDiv.className = "project";
