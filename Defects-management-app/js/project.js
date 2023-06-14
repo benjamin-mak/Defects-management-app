@@ -9,13 +9,14 @@ const eventHandlers1 = {
     <div class="issue-sub-container"> 
     <div class="issue-container-left"> 
     <div class="row"> 
-    <div class="row-box"> <div>Issue number</div> <div class="issue-number">${issueCount}</div> </div> <div class="row-box"> <div>Priority</div>  <select class="priority">  <option>High</option> <option>Medium</option> <option>Low</option> </select> </div> 
+    <div class="row-box"> <div>Issue number</div> <div class="issue-number">${issueCount}</div> </div> <div class="row-box"> <div>Priority</div>  
+    <select class="priority">  <option>High</option> <option>Medium</option> <option>Low</option> </select> </div> 
     <div class="row-box"> <div>Date</div> <input type="date" class="date-input"/> </div> 
     <div class="row-box"> <div>Status</div> <select class="status"> <option>To assign</option>  <option>To rectify</option> <option>For inspection</option> <option>Closed</option> </select> </div>  </div> <label for="freeform">Description:</label>        <br />        <textarea class="freeform" name="freeform" rows="10" cols="70">        </textarea>      </div>      
     <div class="issue-container-right"> <button>Click to upload</button> <div><img src="" alt="image" /></div>      </div>    </div>  </div>`;
     // prepend each issue right after the title
-    const parent = document.querySelector("#main-background");
-    parent.firstElementChild.insertAdjacentHTML("afterend", issueHTML);
+    const title = document.querySelector("#project-title");
+    title.insertAdjacentHTML("afterend", issueHTML);
   },
 
   // Updates an issue
@@ -53,15 +54,30 @@ const eventHandlers1 = {
   // Deletes an issue
   deleteIssue: () => {
     document.querySelector(".delete-btn").addEventListener("click", (e) => {
-      let issueId = e.target.parentNode.parentNode;
-      let issueIdNum = Number(
-        e.target.parentNode.parentNode.getAttribute("id")
-      );
-      //Remove from issue array
-      let index = issuesArr.findIndex((obj) => obj.issueNum === issueIdNum);
-      issuesArr.splice(index, 1);
-      //Remove from html
-      issueId.remove();
+      deletePopupAdd();
+
+      document
+        .querySelector("#delete-popup-close-btn")
+        .addEventListener("click", () => {
+          deletePopupRemove();
+        });
+
+      document
+        .querySelector("#delete-popup-btn")
+        .addEventListener("click", () => {
+          let issueId = e.target.parentNode.parentNode;
+          let issueIdNum = Number(
+            e.target.parentNode.parentNode.getAttribute("id")
+          );
+          //Remove from issue array
+          let index = issuesArr.findIndex((obj) => obj.issueNum === issueIdNum);
+          issuesArr.splice(index, 1);
+          //Remove from html
+          issueId.remove();
+
+          //Close confirm popup
+          deletePopupRemove();
+        });
     });
   },
 };
@@ -81,6 +97,17 @@ document
   .addEventListener("click", eventHandlers1.deleteIssue);
 
 /*** Functions ***/
+// Adds the confirm window when deleting an issue
+const deletePopupAdd = () => {
+  document.querySelector("#delete-popup-id").classList.add("active");
+  document.querySelector("#overlay").classList.add("active");
+};
+
+//Removes the confirm window when deleting an issue
+const deletePopupRemove = () => {
+  document.querySelector("#delete-popup-id").classList.remove("active");
+  document.querySelector("#overlay").classList.remove("active");
+};
 
 /* Global variables */
 let issueCount = 0;
