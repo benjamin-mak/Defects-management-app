@@ -3,7 +3,7 @@ const eventHandlers1 = {
   //Add a new issue
   addIssue: () => {
     issueCount += 1;
-    // html code containing all the elements
+    // html code containing all the elements for a new issue
     let issueHTML = `<div class="issue-main-container" id="${issueCount}"> 
     <div class="issue-btns"> <button class="update-btn">Update</button> <button class="delete-btn">Delete</button></div>
     <div class="issue-sub-container"> 
@@ -49,6 +49,21 @@ const eventHandlers1 = {
       }
     });
   },
+
+  // Deletes an issue
+  deleteIssue: () => {
+    document.querySelector(".delete-btn").addEventListener("click", (e) => {
+      let issueId = e.target.parentNode.parentNode;
+      let issueIdNum = Number(
+        e.target.parentNode.parentNode.getAttribute("id")
+      );
+      //Remove from issue array
+      let index = issuesArr.findIndex((obj) => obj.issueNum === issueIdNum);
+      issuesArr.splice(index, 1);
+      //Remove from html
+      issueId.remove();
+    });
+  },
 };
 
 /**** Buttons ****/
@@ -60,6 +75,10 @@ document
 document
   .querySelector("#add-issue-btn")
   .addEventListener("click", eventHandlers1.updateIssue);
+//Add issue button - on click, adds an event handler to the delete button
+document
+  .querySelector("#add-issue-btn")
+  .addEventListener("click", eventHandlers1.deleteIssue);
 
 /*** Functions ***/
 
