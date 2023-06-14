@@ -39,10 +39,14 @@ const eventHandlers = {
       projects.push(projectObject);
 
       // Display on dashboard
-      let newProject = document.createElement("div");
-      newProject.className = "project";
-      newProject.textContent = projectName.trim();
-      document.querySelector("#projects-tab").append(newProject);
+      let newProjectA = document.createElement("a");
+      newProjectA.textContent = projectName.trim();
+      newProjectA.href = "../dashboard-html/project-template.html";
+
+      let newProjectDiv = document.createElement("div");
+      newProjectDiv.className = "project";
+      newProjectDiv.append(newProjectA);
+      document.querySelector("#projects-tab").append(newProjectDiv);
 
       eventHandlers.closeAddProject();
     } else {

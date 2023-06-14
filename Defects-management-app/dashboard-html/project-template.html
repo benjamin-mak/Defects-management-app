@@ -6,7 +6,8 @@
     <!--Need to change the title for each project-->
     <title>Project Template</title>
     <link rel="stylesheet" href="../css/project.css" />
-    <script src="../js/dashboard.js"></script>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <!-- <script src="../js/dashboard.js" defer></script> -->
     <script src="../js/project.js" defer></script>
   </head>
   <body>
@@ -21,10 +22,11 @@
 
     <div id="projects-tab">
       <h3 id="add-project">Projects</h3>
-      <div class="project">Project 1</div>
+      <div class="project"></div>
     </div>
 
     <div id="main-background">
+      <!--Need to change the title for each project-->
       <h1 id="project-title">Title</h1>
 
       <!--
@@ -42,7 +44,7 @@
               </div>
               <div class="row-box">
                 <div>Priority</div>
-                <select>
+                <select class="priority">
                   <option>High</option>
                   <option>Medium</option>
                   <option>Low</option>
@@ -50,11 +52,11 @@
               </div>
               <div class="row-box">
                 <div>Date</div>
-                <input type="date" />
+                <input type="date" class="date-input"/>
               </div>
               <div class="row-box">
                 <div>Status</div>
-                <select>
+                <select class="status">
                   <option>To assign</option>
                   <option>To rectify</option>
                   <option>For inspection</option>
@@ -64,7 +66,7 @@
             </div>
             <label for="freeform">Description:</label>
             <br />
-            <textarea id="freeform" name="freeform" rows="10" cols="70">
+            <textarea class="freeform" name="freeform" rows="10" cols="70">
             </textarea>
           </div>
           <div class="issue-container-right">
