@@ -41,6 +41,7 @@ const eventHandlers = {
       // Display on dashboard
       let newProjectA = document.createElement("a");
       newProjectA.textContent = projectName.trim();
+      //Add a link to the project page
       newProjectA.href = "../dashboard-html/project-template.html";
 
       let newProjectDiv = document.createElement("div");
