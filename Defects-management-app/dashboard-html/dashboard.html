@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | Home</title>
     <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="../js/store-data.js" defer></script>
     <script src="../js/dashboard.js" defer></script>
   </head>
   <body>
@@ -29,7 +30,11 @@
         </div>
         <div class="project-name-popup-body">
           <div style="font-weight: bold">Name</div>
-          <input class="project-name-popup-input" type="text" />
+          <input
+            class="project-name-popup-input"
+            type="text"
+            onfocus="this.value=''"
+          />
           <div id="project-name-popup-error"></div>
         </div>
         <button id="project-name-popup-add">Add</button>
