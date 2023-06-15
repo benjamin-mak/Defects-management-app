@@ -22,40 +22,6 @@ const eventHandlers = {
     document.querySelector("#overlay").classList.remove("active");
   },
 
-  /*
-  // Add a new project to the projects array and display it on the dashboard
-  newProject: () => {
-    let errorMessage = document.querySelector("#project-name-popup-error");
-    errorMessage.textContent = " ";
-    let projectName = document.querySelector(
-      "input.project-name-popup-input"
-    ).value;
-    // add the project only if input project name is not blank
-    if (projectName.trim()) {
-      projectCount += 1;
-      const projectObject = {
-        Name: projectName.trim(),
-        ProjectId: projectCount,
-      };
-      projects.push(projectObject);
-
-      //Create a link for the project
-      let newProjectA = document.createElement("a");
-      newProjectA.textContent = projectName.trim();
-      newProjectA.href = `../dashboard-html/project-template.html?page=${projectName.trim()}`; //Add a link to the project page
-      //Display the project on dashboard
-      let newProjectDiv = document.createElement("div");
-      newProjectDiv.className = "project";
-      newProjectDiv.append(newProjectA);
-      document.querySelector("#projects-tab").append(newProjectDiv);
-
-      eventHandlers.closeAddProject();
-    } else {
-      errorMessage.textContent = "Project name cannot be blank!";
-    }
-  },
-  */
-
   // Add a new project to the session storage
   newProject: () => {
     let errorMessage = document.querySelector("#project-name-popup-error");
@@ -67,7 +33,7 @@ const eventHandlers = {
     if (projectName.trim()) {
       let count = projectCount();
       count += 1;
-      let projectData = { id: count, name: projectName };
+      let projectData = { id: count, name: projectName, issueArr: [] };
       saveProject(projectName, projectData);
       eventHandlers.closeAddProject();
     } else {
@@ -134,7 +100,7 @@ document
   .addEventListener("click", eventHandlers.displayProjects);
 
 /***** Other event listeners *****/
-// On refresh of dashboard page - display all projects in the project tab
+// On refresh/load of dashboard page - display all projects in the project tab
 window.addEventListener("load", eventHandlers.displayProjects);
 
 /***** Global variables *****/

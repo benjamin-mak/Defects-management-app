@@ -30,3 +30,14 @@ function getProjectDataObjAll() {
 function projectCount() {
   return getProjectDataObjAll().length;
 }
+
+// Get the array of all issues for the specified project
+function getProjectIssues(projectName) {
+  const obj = getProjectDataObj(projectName);
+  return obj.issueArr;
+}
+
+// Returns the current total number of issues for the specified project
+function issueCount(projectName) {
+  return getProjectIssues(projectName).length;
+}
