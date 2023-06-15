@@ -1,5 +1,5 @@
-/**** Event handlers object ****/
-const eventHandlers1 = {
+/***** Event handlers object *****/
+const eventHandlersProject = {
   //Add a new issue
   addIssue: () => {
     issueCount += 1;
@@ -98,21 +98,25 @@ const eventHandlers1 = {
   },
 };
 
-/**** Buttons ****/
+/***** Buttons *****/
 //Add issue button - on click, adds a new issue to the project page
 document
   .querySelector("#add-issue-btn")
-  .addEventListener("click", eventHandlers1.addIssue);
+  .addEventListener("click", eventHandlersProject.addIssue);
 //Add issue button - on click, adds an event handler to the update button
 document
   .querySelector("#add-issue-btn")
-  .addEventListener("click", eventHandlers1.updateIssue);
+  .addEventListener("click", eventHandlersProject.updateIssue);
 //Add issue button - on click, adds an event handler to the delete button
 document
   .querySelector("#add-issue-btn")
-  .addEventListener("click", eventHandlers1.deleteIssue);
+  .addEventListener("click", eventHandlersProject.deleteIssue);
 
-/*** Functions ***/
+/***** Other event listeners *****/
+// On refresh of dashboard page - display all projects in the project tab
+window.addEventListener("load", eventHandlers.displayProjects);
+
+/***** Functions *****/
 // Adds the confirm window when deleting an issue
 const deletePopupAdd = () => {
   document.querySelector("#delete-popup-id").classList.add("active");
@@ -137,7 +141,14 @@ const updatePopupRemove = () => {
   document.querySelector("#overlay2").classList.remove("active");
 };
 
-/* Global variables */
+//Get the project name from the current url parameter
+const getProjectName = () => {
+  const params = new URLSearchParams(window.location.search);
+  let projectName = params.get("page");
+  return projectName;
+};
+
+/***** Global variables *****/
 let issueCount = 0;
 // Array of objects to store data
 const issuesArr = []; // { issueNum: 1, priority: "", date: "", status: "" }
@@ -146,6 +157,9 @@ const priority = ["Low", "Medium", "High"];
 const status = ["To assign", "To rectify", "For inspection", "Closed"];
 
 /* Main script */
-// Change title of project
-// document.querySelector("title").textContent = `Projects | ${projects[0].Name}`;
-// document.querySelector("#project-title").textContent = projects[0].Name;
+//Update header title
+document.querySelector("head title").textContent =
+  "Project | " + getProjectName();
+
+//Update project title on main page
+document.querySelector("h1#project-title").textContent = getProjectName();
