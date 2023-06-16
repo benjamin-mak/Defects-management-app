@@ -1,3 +1,13 @@
+/*** Global Variables ****/
+const priorityOptions = ["--Select--", "High", "Medium", "Low"];
+const statusOptions = [
+  "--Select--",
+  "To assign",
+  "To rectify",
+  "For inspection",
+  "Closed",
+];
+
 // Functions //
 // Save project to the session storage
 function saveProject(projectName, projectDataObj) {
@@ -11,7 +21,7 @@ function getProjectDataObj(projectName) {
   return dataObj;
 }
 
-// Get an array of all the local storage values, sorted by project id
+// Get an array of all the local storage values objects, sorted by project id
 function getProjectDataObjAll() {
   const valuesArr = [];
   const keys = Object.keys(localStorage);
@@ -49,6 +59,16 @@ function getProjectIssues(projectName) {
 // Returns the current total number of issues for the specified project
 function issueCount(projectName) {
   return getProjectIssues(projectName).length;
+}
+
+// Returns the total number of issues for all projects
+function issueCountAll() {
+  let totalCount = 0;
+  const allProjects = getProjectDataObjAll();
+  for (let obj of allProjects) {
+    totalCount += obj.issueArr.length;
+  }
+  return totalCount;
 }
 
 // Keep track of and return the last issue id number

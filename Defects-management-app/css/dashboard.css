@@ -46,10 +46,10 @@
 
 #main-container {
   display: flex;
-  gap: 200px;
+  gap: 150px;
 }
 
-#total,
+#total-box,
 #issues-month-box,
 #status-box {
   border: 2px solid red;
@@ -100,7 +100,7 @@
 .number {
   border: 2px solid blue;
   margin: 0 auto;
-  width: 100px;
+  width: 120px;
   text-align: center;
 }
 

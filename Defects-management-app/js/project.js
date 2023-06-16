@@ -203,14 +203,14 @@ const getProjectName = () => {
 };
 
 /***** Global variables *****/
-const priorityOptions = ["--Select--", "High", "Medium", "Low"];
-const statusOptions = [
-  "--Select--",
-  "To assign",
-  "To rectify",
-  "For inspection",
-  "Closed",
-];
+// const priorityOptions = ["--Select--", "High", "Medium", "Low"];
+// const statusOptions = [
+//   "--Select--",
+//   "To assign",
+//   "To rectify",
+//   "For inspection",
+//   "Closed",
+// ];
 
 /* Main script */
 //Update header title
