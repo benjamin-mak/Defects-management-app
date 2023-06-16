@@ -1,35 +1,78 @@
 /***** Event handlers object *****/
 const eventHandlersProject = {
-  //Add a new issue
+  //Displays all issues on the page
+  displayIssues: () => {
+    //clear all issues from the page
+    let title = document.querySelector("h1#project-title");
+    let sibling = title.nextSibling;
+    while (sibling) {
+      let nextSibling = sibling.nextSibling;
+      sibling.remove();
+      sibling = nextSibling;
+    }
+    //Display all the issues for that project
+    const allIssues = getProjectIssues(getProjectName());
+    if (allIssues.length > 0) {
+      for (let issue of allIssues) {
+        // html code containing all the elements for a new issue
+        let issueHTML = `<div class="issue-main-container" id="${issue.number}"> 
+        <div class="issue-btns"> <button class="update-btn">Update</button> <button class="delete-btn">Delete</button></div>
+        <div class="issue-sub-container"> 
+        <div class="issue-container-left"> 
+        <div class="row"> 
+        <div class="row-box"> <div>Issue number</div> <div class="issue-number">${issue.number}</div> </div> 
+        <div class="row-box"> <div>Priority</div>  
+        <select class="priority"> <option>${priorityOptions[0]}</option> <option>${priorityOptions[1]}</option> <option>${priorityOptions[2]}</option> <option>${priorityOptions[3]}</option> </select> <div>${issue.priority}</div> </div> 
+        <div class="row-box"> <div>Date</div> <input type="date" class="date-input"/> <div>${issue.date}</div> </div> 
+        <div class="row-box"> <div>Status</div> <select class="status"> <option>${statusOptions[0]}</option> <option>${statusOptions[1]}</option> <option>${statusOptions[2]}</option> <option>${statusOptions[3]}</option> <option>${statusOptions[4]}</option> </select> <div>${issue.status}</div> </div>  </div> 
+        <label for="freeform">Description:</label> <br /> <textarea class="freeform" name="freeform" rows="10" cols="70"> </textarea> </div>      
+        <div class="issue-container-right"> <button>Click to upload</button> <div><img src="" alt="image" /> </div> </div> </div> </div>`;
+        // prepend each issue right after the title
+        title.insertAdjacentHTML("afterend", issueHTML);
+
+        eventHandlersProject.updateIssue();
+      }
+    }
+  },
+
+  //Add and displays a new issue on page
   addIssue: () => {
-    issueCount += 1;
+    // Get the issue number
+    lastNum = lastNumber(getProjectName()) + 1;
+    // Save it to local storage
+    addNewIssueLS(getProjectName(), lastNum);
+
+    // Display issue on page
     // html code containing all the elements for a new issue
-    let issueHTML = `<div class="issue-main-container" id="${issueCount}"> 
+    let issueHTML = `<div class="issue-main-container" id="${lastNum}"> 
     <div class="issue-btns"> <button class="update-btn">Update</button> <button class="delete-btn">Delete</button></div>
     <div class="issue-sub-container"> 
     <div class="issue-container-left"> 
     <div class="row"> 
-    <div class="row-box"> <div>Issue number</div> <div class="issue-number">${issueCount}</div> </div> <div class="row-box"> <div>Priority</div>  
-    <select class="priority">  <option>High</option> <option>Medium</option> <option>Low</option> </select> </div> 
+    <div class="row-box"> <div>Issue number</div> <div class="issue-number">${lastNum}</div> </div> <div class="row-box"> <div>Priority</div>  
+    <select class="priority"> <option>--Select--</option>  <option>High</option> <option>Medium</option> <option>Low</option> </select> </div> 
     <div class="row-box"> <div>Date</div> <input type="date" class="date-input"/> </div> 
-    <div class="row-box"> <div>Status</div> <select class="status"> <option>To assign</option>  <option>To rectify</option> <option>For inspection</option> <option>Closed</option> </select> </div>  </div> <label for="freeform">Description:</label>        <br />        <textarea class="freeform" name="freeform" rows="10" cols="70">        </textarea>      </div>      
+    <div class="row-box"> <div>Status</div> <select class="status"> <option>--Select--</option> <option>To assign</option>  <option>To rectify</option> <option>For inspection</option> <option>Closed</option> </select> </div>  </div> <label for="freeform">Description:</label>        <br />        <textarea class="freeform" name="freeform" rows="10" cols="70">        </textarea>      </div>      
     <div class="issue-container-right"> <button>Click to upload</button> <div><img src="" alt="image" /></div>      </div>    </div>  </div>`;
     // prepend each issue right after the title
-    const title = document.querySelector("#project-title");
+    const title = document.querySelector("h1#project-title");
     title.insertAdjacentHTML("afterend", issueHTML);
   },
 
   // Updates an issue
   updateIssue: () => {
+    // Opens up the popup window
     document.querySelector(".update-btn").addEventListener("click", (e) => {
       updatePopupAdd();
 
+      // Closes the popup window
       document
         .querySelector("#update-popup-close-btn")
         .addEventListener("click", () => {
           updatePopupRemove();
         });
 
+      // Updates the issue on confirm button click
       document
         .querySelector("#update-popup-btn")
         .addEventListener("click", () => {
@@ -40,29 +83,43 @@ const eventHandlersProject = {
           let issueId = e.target.parentNode.parentNode;
           let p = issueId.querySelector("select.priority");
           let s = issueId.querySelector("select.status");
-          //Check if issue is in the issues array
-          if (issuesArr.some((obj) => obj.issueNum === issueIdNum)) {
-            // Get index of that issue in the array
-            let index = issuesArr.findIndex(
-              (obj) => obj.issueNum === issueIdNum
-            );
-            // Update priority
-            issuesArr[index].priority = p.options[p.selectedIndex].text;
-            // Update date
-            issuesArr[index].date = issueId.querySelector(".date-input").value;
-            // Update status
-            issuesArr[index].status = s.options[s.selectedIndex].text;
-          } else {
-            //If not create a new object and add to the issue array
-            let newIssueObj = {};
-            newIssueObj.issueNum = issueIdNum;
-            newIssueObj.priority = p.options[p.selectedIndex].text;
-            newIssueObj.date = issueId.querySelector(".date-input").value;
-            newIssueObj.status = s.options[s.selectedIndex].text;
-            issuesArr.push(newIssueObj);
-          }
+          let d = issueId.querySelector(".date-input").value;
+
+          // Find and update the issue
+          const issuesArr = getProjectIssues(getProjectName());
+          let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
+          // if unable to find the issue number in the array, create as a new issue and add to the issue array
+          // if (index === -1) {
+          //   const obj = {
+          //     number: issueIdNum,
+          //     priority: p.options[p.selectedIndex].text,
+          //     date: d,
+          //     status: s.options[s.selectedIndex].text,
+          //   };
+          //   issuesArr.push(obj);
+          // } else {
+          // else update the issue in the array
+
+          // Update priority
+          issuesArr[index].priority =
+            p.options[p.selectedIndex].text === priorityOptions[0]
+              ? issuesArr[index].priority
+              : p.options[p.selectedIndex].text;
+          // Update date
+          issuesArr[index].date = d === "" ? issuesArr[index].date : d;
+          // Update status
+          issuesArr[index].status =
+            s.options[s.selectedIndex].text === statusOptions[0]
+              ? issuesArr[index].status
+              : s.options[s.selectedIndex].text;
+
+          //Save to local storage
+          let projectObject = getProjectDataObj(getProjectName());
+          projectObject.issueArr = issuesArr;
+          saveProject(getProjectName(), projectObject);
 
           updatePopupRemove();
+          eventHandlersProject.displayIssues();
         });
     });
   },
@@ -115,6 +172,8 @@ document
 /***** Other event listeners *****/
 // On refresh of dashboard page - display all projects in the project tab
 window.addEventListener("load", eventHandlers.displayProjects);
+// On refresh of dashboard page - display all issues on the webpage
+window.addEventListener("load", eventHandlersProject.displayIssues);
 
 /***** Functions *****/
 // Adds the confirm window when deleting an issue
@@ -141,7 +200,7 @@ const updatePopupRemove = () => {
   document.querySelector("#overlay2").classList.remove("active");
 };
 
-//Get the project name from the current url parameter
+// Get the current project name from the current url parameter
 const getProjectName = () => {
   const params = new URLSearchParams(window.location.search);
   let projectName = params.get("page");
@@ -149,12 +208,14 @@ const getProjectName = () => {
 };
 
 /***** Global variables *****/
-let issueCount = 0;
-// Array of objects to store data
-const issuesArr = []; // { issueNum: 1, priority: "", date: "", status: "" }
-
-const priority = ["Low", "Medium", "High"];
-const status = ["To assign", "To rectify", "For inspection", "Closed"];
+const priorityOptions = ["--Select--", "High", "Medium", "Low"];
+const statusOptions = [
+  "--Select--",
+  "To assign",
+  "To rectify",
+  "For inspection",
+  "Closed",
+];
 
 /* Main script */
 //Update header title

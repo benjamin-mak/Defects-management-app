@@ -31,13 +31,52 @@ function projectCount() {
   return getProjectDataObjAll().length;
 }
 
-// Get the array of all issues for the specified project
+// Get the array of all issues for the specified project, sorted by ascending number
 function getProjectIssues(projectName) {
   const obj = getProjectDataObj(projectName);
-  return obj.issueArr;
+  //Sort the array by number
+  const arr = obj.issueArr;
+  if (arr.length === 0) {
+    return [];
+  } else {
+    arr.sort((a, b) => {
+      return a.number - b.number;
+    });
+    return arr;
+  }
 }
 
 // Returns the current total number of issues for the specified project
 function issueCount(projectName) {
   return getProjectIssues(projectName).length;
+}
+
+// Keep track of and return the last issue id number
+function lastNumber(projectName) {
+  const arr = getProjectIssues(projectName);
+  if (arr.length === 0) {
+    return 0;
+  } else {
+    return arr[arr.length - 1].number;
+  }
+}
+
+/*
+// Update the issues of a particular project
+function updateIssue(projectName) {
+  const issuesArr = getProjectIssues(projectName);
+  let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
+
+  //Save to local storage
+}
+*/
+
+// Stores an issue in localstorage for a specified issue number and project name
+function addNewIssueLS(projectName, issueNum) {
+  const projectObj = getProjectDataObj(projectName);
+  const arr = getProjectIssues(projectName);
+  const newIssue = { number: issueNum, priority: "-", date: "-", status: "-" };
+  arr.push(newIssue);
+  projectObj.issueArr = arr;
+  saveProject(projectName, projectObj);
 }
