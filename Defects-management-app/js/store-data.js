@@ -61,15 +61,12 @@ function lastNumber(projectName) {
   }
 }
 
-/*
-// Update the issues of a particular project
-function updateIssue(projectName) {
-  const issuesArr = getProjectIssues(projectName);
-  let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
-
-  //Save to local storage
+// Update the issues array of a particular project by passing in the project name and new issues array
+function updateIssueLS(projectName, newissueArr) {
+  const newProjectObj = getProjectDataObj(projectName);
+  newProjectObj.issueArr = newissueArr;
+  saveProject(projectName, newProjectObj);
 }
-*/
 
 // Stores an issue in localstorage for a specified issue number and project name
 function addNewIssueLS(projectName, issueNum) {

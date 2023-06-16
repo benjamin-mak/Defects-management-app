@@ -31,6 +31,7 @@ const eventHandlersProject = {
         title.insertAdjacentHTML("afterend", issueHTML);
 
         eventHandlersProject.updateIssue();
+        eventHandlersProject.deleteIssue();
       }
     }
   },
@@ -88,17 +89,6 @@ const eventHandlersProject = {
           // Find and update the issue
           const issuesArr = getProjectIssues(getProjectName());
           let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
-          // if unable to find the issue number in the array, create as a new issue and add to the issue array
-          // if (index === -1) {
-          //   const obj = {
-          //     number: issueIdNum,
-          //     priority: p.options[p.selectedIndex].text,
-          //     date: d,
-          //     status: s.options[s.selectedIndex].text,
-          //   };
-          //   issuesArr.push(obj);
-          // } else {
-          // else update the issue in the array
 
           // Update priority
           issuesArr[index].priority =
@@ -114,9 +104,7 @@ const eventHandlersProject = {
               : s.options[s.selectedIndex].text;
 
           //Save to local storage
-          let projectObject = getProjectDataObj(getProjectName());
-          projectObject.issueArr = issuesArr;
-          saveProject(getProjectName(), projectObject);
+          updateIssueLS(getProjectName(), issuesArr);
 
           updatePopupRemove();
           eventHandlersProject.displayIssues();
@@ -128,7 +116,9 @@ const eventHandlersProject = {
   deleteIssue: () => {
     document.querySelector(".delete-btn").addEventListener("click", (e) => {
       deletePopupAdd();
+      console.log(e.target.parentNode.parentNode);
 
+      //Close the popup window
       document
         .querySelector("#delete-popup-close-btn")
         .addEventListener("click", () => {
@@ -138,18 +128,23 @@ const eventHandlersProject = {
       document
         .querySelector("#delete-popup-btn")
         .addEventListener("click", () => {
-          let issueId = e.target.parentNode.parentNode;
+          // let issueId = e.target.parentNode.parentNode;
           let issueIdNum = Number(
             e.target.parentNode.parentNode.getAttribute("id")
           );
-          //Remove from issue array
-          let index = issuesArr.findIndex((obj) => obj.issueNum === issueIdNum);
-          issuesArr.splice(index, 1);
-          //Remove from html
-          issueId.remove();
+
+          //Remove from local storage
+          const issuesArr = getProjectIssues(getProjectName());
+          let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
+          if (index !== -1) {
+            issuesArr.splice(index, 1);
+            updateIssueLS(getProjectName(), issuesArr);
+          }
 
           //Close confirm popup
           deletePopupRemove();
+          //Display all issues again
+          eventHandlersProject.displayIssues();
         });
     });
   },
