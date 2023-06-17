@@ -97,6 +97,8 @@ const eventHandlers = {
     let totalAssign = 0;
     let totalRectify = 0;
     let totalInspect = 0;
+    let totalClosed = 0;
+    issueCountAll() - totalAssign - totalRectify - totalInspect;
     const allProjects = getProjectDataObjAll();
     for (let obj of allProjects) {
       obj.issueArr.forEach((element) => {
@@ -112,9 +114,157 @@ const eventHandlers = {
     let pInspect = document.querySelector("p#inspection");
     pInspect.textContent = totalInspect;
     let pClosed = document.querySelector("p#status-closed");
-    pClosed.textContent =
-      issueCountAll() - totalAssign - totalRectify - totalInspect;
+    totalClosed = issueCountAll() - totalAssign - totalRectify - totalInspect;
+    pClosed.textContent = totalClosed;
+
+    //Display the pie chart
+    const yValues = [totalAssign, totalRectify, totalInspect, totalClosed];
+    statusPieChart(yValues);
   },
+};
+
+/***** Functions *****/
+// Function that displays the pie chart of issues split by status
+const statusPieChart = (yValues) => {
+  const xValues = [
+    statusOptions[1],
+    statusOptions[2],
+    statusOptions[3],
+    statusOptions[4],
+  ];
+
+  const pieChart = document.querySelector("#status-pie-chart");
+  const pieChartdata = {
+    labels: xValues,
+    datasets: [
+      {
+        backgroundColor: ["pink", "red", "blue", "green"],
+        data: yValues,
+        borderColor: "lightgrey",
+      },
+    ],
+  };
+
+  new Chart(pieChart, {
+    type: "doughnut",
+    data: pieChartdata,
+    options: {
+      plugins: {
+        datalabels: {
+          formatter: (value) => {
+            return value + "%";
+          },
+        },
+      },
+    },
+  });
+};
+
+// Function that displays the bar chart of issues per month
+const dateBarChart = () => {
+  const xValues = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Get the number of issues per month
+  const yValues = [];
+  const issuesMonth = issueCountAllDate();
+  for (let month of xValues) {
+    yValues.push(issuesMonth[month]);
+  }
+
+  const barChart = document.querySelector("#date-bar-chart");
+  const barChartData = {
+    labels: xValues,
+    datasets: [
+      {
+        barPercentage: 0.7,
+        backgroundColor: "orange",
+        // borderColor: ,
+        data: yValues,
+      },
+    ],
+  };
+
+  new Chart(barChart, {
+    type: "bar",
+    data: barChartData,
+  });
+};
+
+// Function that displays the bar chart of issues per month, separated by priority
+const datePriorityBarChart = () => {
+  const xValues = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Get the number of issues per month
+  const yValuesHigh = [];
+  const yValuesMedium = [];
+  const yValuesLow = [];
+  const issuesMonth = issueCountDatePriority();
+  for (let month of xValues) {
+    if (issuesMonth.hasOwnProperty(month)) {
+      for (const obj in issuesMonth[month]) {
+        // yValuesHigh.push(obj[priorityOptions[1]]);
+        yValuesHigh.push(obj["High"]);
+        // yValuesMedium.push(obj[priorityOptions[2]]);
+        yValuesMedium.push(obj["Medium"]);
+        // yValuesLow.push(obj[priorityOptions[3]]);
+        yValuesLow.push(obj["Low"]);
+      }
+    }
+  }
+  console.log(yValuesHigh);
+
+  const barChart = document.querySelector("#date-bar-chart");
+  const barChartData = {
+    labels: xValues,
+    datasets: [
+      {
+        label: "High",
+        backgroundColor: "red",
+        data: yValuesHigh,
+      },
+      {
+        label: "Medium",
+        backgroundColor: "orange",
+        data: yValuesMedium,
+      },
+      {
+        label: "Low",
+        backgroundColor: "yellow",
+        data: yValuesLow,
+      },
+    ],
+  };
+
+  new Chart(barChart, {
+    type: "bar",
+    data: barChartData,
+  });
 };
 
 /***** Buttons *****/
@@ -155,9 +305,9 @@ window.addEventListener("load", eventHandlers.displayProjects);
 // On refresh/load of dashboard page - display the total number of issues
 // Total number
 window.addEventListener("load", eventHandlers.totalIssues);
-// Total number of open
+// Total number of open/closed/high-priority issues
 window.addEventListener("load", eventHandlers.totalIssuesSplit);
-//
+// Total number of issues split by status
 window.addEventListener("load", eventHandlers.totalIssuesStatus);
-
-/***** Global variables *****/
+// Total number of issues split by month
+window.addEventListener("load", dateBarChart);

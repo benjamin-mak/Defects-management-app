@@ -71,6 +71,58 @@ function issueCountAll() {
   return totalCount;
 }
 
+// Returns an object of total number of issues for all projects split by month
+function issueCountAllDate() {
+  const dateObj = {};
+  const allProjects = getProjectDataObjAll();
+  for (let obj of allProjects) {
+    // For each project object, loop through each issue
+    for (let i = 0; i < obj.issueArr.length; i++) {
+      // Get the month of each issue
+      let dateString = obj.issueArr[i].date;
+      let date = new Date(dateString);
+      let month = date.toLocaleString("default", { month: "short" });
+      // if month is in dateObj, add 1 to month
+      if (dateObj.hasOwnProperty(month)) {
+        dateObj[month] += 1;
+      } else {
+        // else add month to dateObj
+        dateObj[month] = 1;
+      }
+    }
+  }
+
+  return dateObj;
+}
+
+// Returns an object of the number of issues split by month and priority
+function issueCountDatePriority() {
+  const dateObj = {};
+  const allProjects = getProjectDataObjAll();
+  for (let obj of allProjects) {
+    // For each project object, loop through each issue
+    for (let i = 0; i < obj.issueArr.length; i++) {
+      // Get the month of each issue
+      let dateString = obj.issueArr[i].date;
+      let date = new Date(dateString);
+      let month = date.toLocaleString("default", { month: "short" });
+
+      let priority = obj.issueArr[i].priority;
+
+      // if month is in dateObj, add 1 to month
+      if (dateObj.hasOwnProperty(month)) {
+        dateObj[month][priority] += 1;
+      } else {
+        // else add month to dateObj
+        dateObj[month] = { High: 0, Medium: 0, Low: 0 };
+        dateObj[month][priority] += 1;
+      }
+    }
+  }
+
+  return dateObj;
+}
+
 // Keep track of and return the last issue id number
 function lastNumber(projectName) {
   const arr = getProjectIssues(projectName);
