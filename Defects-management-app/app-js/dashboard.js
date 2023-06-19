@@ -1,5 +1,14 @@
+import {
+  addProjectToDB,
+  getProjectDataAll,
+  getProjectData,
+  projectCount,
+  addIssueDB,
+  lastNumber,
+} from "../data-storage-js/firebase-db.js";
+
 /***** Event handlers object *****/
-const eventHandlers = {
+export const eventHandlers = {
   // Logouts and redirects to login page
   logout: (event) => {
     event.target.href = "../login.html";
@@ -22,49 +31,47 @@ const eventHandlers = {
     document.querySelector("#overlay").classList.remove("active");
   },
 
-  // Add a new project to the session storage
+  // Add a new project to firebase
   newProject: () => {
     let errorMessage = document.querySelector("#project-name-popup-error");
     errorMessage.textContent = " ";
+    // Get the project name from user input
     let projectName = document.querySelector(
       "input.project-name-popup-input"
     ).value;
     // add the project only if input project name is not blank
     if (projectName.trim()) {
-      let count = projectCount();
-      count += 1;
-      let projectData = { id: count, name: projectName, issueArr: [] };
-      saveProject(projectName, projectData);
+      projectCount().then((count) => {
+        addProjectToDB(projectName, count + 1);
+      });
+
       eventHandlers.closeAddProject();
     } else {
       errorMessage.textContent = "Project name cannot be blank!";
     }
+
+    eventHandlers.displayProjects();
   },
 
   // Display the projects in the project tab
   displayProjects: () => {
-    // Clear any recent projects from the page
-    const h3 = document.querySelector("#add-project");
-    let sibling = h3.nextSibling;
-    while (sibling) {
-      let nextSibling = sibling.nextSibling;
-      sibling.remove();
-      sibling = nextSibling;
-    }
+    // Clear any recent projects from the page to reset the page
+    removeSiblings("#add-project");
 
     // Display all the projects in storage
-    const projectsArr = getProjectDataObjAll();
-    for (let i = 0; i < projectsArr.length; i++) {
-      //Create a link for each project
-      let newProjectA = document.createElement("a");
-      newProjectA.textContent = projectsArr[i].name;
-      newProjectA.href = `../dashboard-html/project-template.html?page=${projectsArr[i].name}`; //Add a link to the project page
-      //Display each project on dashboard
-      let newProjectDiv = document.createElement("div");
-      newProjectDiv.className = "project";
-      newProjectDiv.append(newProjectA);
-      document.querySelector("#projects-tab").appendChild(newProjectDiv);
-    }
+    getProjectDataAll().then((projectsArr) => {
+      for (let i = 0; i < projectsArr.length; i++) {
+        //Create a link for each project
+        let newProjectA = document.createElement("a");
+        newProjectA.textContent = projectsArr[i].name;
+        newProjectA.href = `../dashboard-html/project-template.html?page=${projectsArr[i].name}`; //Add a link to the project page
+        //Display each project on dashboard
+        let newProjectDiv = document.createElement("div");
+        newProjectDiv.className = "project";
+        newProjectDiv.append(newProjectA);
+        document.querySelector("#projects-tab").appendChild(newProjectDiv);
+      }
+    });
   },
 
   // Display the total number of issues on the dashboard
@@ -124,6 +131,17 @@ const eventHandlers = {
 };
 
 /***** Functions *****/
+// Function that removes all siblings of a specified element
+export const removeSiblings = (id) => {
+  const element = document.querySelector(id);
+  let sibling = element.nextSibling;
+  while (sibling) {
+    let nextSibling = sibling.nextSibling;
+    sibling.remove();
+    sibling = nextSibling;
+  }
+};
+
 // Function that displays the pie chart of issues split by status
 const statusPieChart = (yValues) => {
   const xValues = [
@@ -294,9 +312,9 @@ document
   .addEventListener("click", eventHandlers.newProject);
 
 // Project name popup window add button - on click, displays all projects in the project tab
-document
-  .querySelector("#project-name-popup-add")
-  .addEventListener("click", eventHandlers.displayProjects);
+// document
+//   .querySelector("#project-name-popup-add")
+//   .addEventListener("click", eventHandlers.displayProjects);
 
 /***** Other event listeners *****/
 // On refresh/load of dashboard page - display all projects in the project tab

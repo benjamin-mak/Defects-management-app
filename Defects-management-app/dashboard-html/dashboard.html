@@ -3,14 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | Home</title>
+    <title>Home | Dashboard</title>
     <link rel="stylesheet" href="../css/dashboard.css" />
-    <script src="../js/store-data.js" defer></script>
-    <script src="../js/dashboard.js" defer></script>
-    <!--Link for chart.js-->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
   </head>
   <body>
     <div id="banner">
@@ -109,5 +103,14 @@
         </div>
       </div>
     </div>
+
+    <script type="module" src="../app-js/dashboard.js"></script>
+    <script src="../app-js/global-variables.js"></script>
+    <script type="module" src="../data-storage-js/firebase-info.js"></script>
+    <script type="module" src="../data-storage-js/firebase-db.js"></script>
+    <!--Links for chart.js-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
   </body>
 </html>
