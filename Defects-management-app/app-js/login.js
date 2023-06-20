@@ -92,6 +92,7 @@ export const userLogout = async () => {
     console.log(errorCode + errorMessage);
     alert("Unable to sign out.");
   }
+  checkAuthState();
 };
 
 // Buttons //

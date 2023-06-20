@@ -13,11 +13,10 @@ import {
 
 import { userLogout, checkAuthState } from "./login.js";
 
-// checkAuthState();
-
 /***** Event handlers object *****/
 export const eventHandlers = {
   // Logouts and redirects to login page
+  // Not in use anymore
   logout: (event) => {
     event.target.href = "../login.html";
   },
@@ -65,7 +64,7 @@ export const eventHandlers = {
     // Clear any recent projects from the page to reset the page
     removeSiblings("#add-project");
 
-    // Display all the projects in storage
+    // Display all the projects in firebase
     getProjectDataAll().then((projectsArr) => {
       for (let i = 0; i < projectsArr.length; i++) {
         //Create a link for each project
@@ -305,7 +304,7 @@ const datePriorityBarChart = () => {
 /***** Buttons *****/
 // Logout button - On click logouts and returns to login page
 document.querySelector("#logout-btn").addEventListener("click", (e) => {
-  // e.preventDefault();
+  e.preventDefault();
   userLogout();
 });
 

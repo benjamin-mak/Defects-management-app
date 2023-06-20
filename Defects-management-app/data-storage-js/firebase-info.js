@@ -27,17 +27,3 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export default db;
-
-export const userSignUp = async (userEmail, userPassword) => {
-  const signUpEmail = userEmail.value;
-  const signUpPassword = userPassword.value;
-  createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
-    .then((userCredential) => {
-      alert("Your account has been created");
-    })
-    .catch((error) => {
-      const errorCode = error.errorCode;
-      const errorMessage = error.message;
-      console.log(errorCode + errorMessage);
-    });
-};
