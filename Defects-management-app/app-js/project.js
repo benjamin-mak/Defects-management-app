@@ -9,10 +9,6 @@ import {
 } from "../data-storage-js/firebase-db.js";
 import { eventHandlers, removeSiblings } from "./dashboard.js";
 
-window.addEventListener("load", () => {
-  console.log("Window loading");
-});
-
 /***** Event handlers object *****/
 const eventHandlersProject = {
   //Displays all issues on the page
@@ -54,17 +50,18 @@ const eventHandlersProject = {
   //Add and displays a new issue on page
   addIssue: () => {
     // Get the issue number
-    lastNumber("Test 3").then((result) => {
+    lastNumber(getProjectName()).then((result) => {
       let lastNum = result + 1;
       const newIssue = {
         number: lastNum,
         priority: "-",
         date: "-",
         status: "-",
+        description: "-",
       };
 
       //Save to DB
-      addIssueDB("Test 3", newIssue);
+      addIssueDB(getProjectName(), newIssue);
 
       // Display issue on page
       // html code containing all the elements for a new issue
@@ -109,27 +106,30 @@ const eventHandlersProject = {
           let p = issueId.querySelector("select.priority");
           let s = issueId.querySelector("select.status");
           let d = issueId.querySelector(".date-input").value;
+          let des = issueId.querySelector(".freeform").value;
 
           // Find and update the issue
-          const issuesArr = getProjectIssues(getProjectName());
-          let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
+          getProjectIssues(getProjectName()).then((issuesArr) => {
+            let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
 
-          // Update priority
-          issuesArr[index].priority =
-            p.options[p.selectedIndex].text === priorityOptions[0]
-              ? issuesArr[index].priority
-              : p.options[p.selectedIndex].text;
-          // Update date
-          issuesArr[index].date = d === "" ? issuesArr[index].date : d;
-          // Update status
-          issuesArr[index].status =
-            s.options[s.selectedIndex].text === statusOptions[0]
-              ? issuesArr[index].status
-              : s.options[s.selectedIndex].text;
+            // Update priority
+            issuesArr[index].priority =
+              p.options[p.selectedIndex].text === priorityOptions[0]
+                ? issuesArr[index].priority
+                : p.options[p.selectedIndex].text;
+            // Update date
+            issuesArr[index].date = d === "" ? issuesArr[index].date : d;
+            // Update status
+            issuesArr[index].status =
+              s.options[s.selectedIndex].text === statusOptions[0]
+                ? issuesArr[index].status
+                : s.options[s.selectedIndex].text;
+            // Update description
+            issuesArr[index].description = des;
 
-          //Save to local storage
-          updateIssueLS(getProjectName(), issuesArr);
-
+            //Save to firebase
+            updateIssueDB(getProjectName(), issuesArr);
+          });
           updatePopupRemove();
           eventHandlersProject.displayIssues();
         });
@@ -157,13 +157,14 @@ const eventHandlersProject = {
             e.target.parentNode.parentNode.getAttribute("id")
           );
 
-          //Remove from local storage
-          const issuesArr = getProjectIssues(getProjectName());
-          let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
-          if (index !== -1) {
-            issuesArr.splice(index, 1);
-            updateIssueLS(getProjectName(), issuesArr);
-          }
+          //Remove from firebase
+          getProjectIssues(getProjectName()).then((issuesArr) => {
+            let index = issuesArr.findIndex((obj) => obj.number === issueIdNum);
+            if (index !== -1) {
+              issuesArr.splice(index, 1);
+              updateIssueDB(getProjectName(), issuesArr);
+            }
+          });
 
           //Close confirm popup
           deletePopupRemove();
@@ -225,8 +226,6 @@ document
 window.addEventListener("load", eventHandlers.displayProjects);
 // On refresh of dashboard page - display all issues on the webpage
 window.addEventListener("load", eventHandlersProject.displayIssues);
-
-/***** Global variables *****/
 
 /* Main script */
 //Update header title

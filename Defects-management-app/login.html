@@ -4,19 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <link rel="stylesheet" href="css/login.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/login.css" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
       integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
       crossorigin="anonymous"
     ></script>
-    <script src="js/login.js" defer></script>
   </head>
   <body>
     <div id="banner">Banner</div>
@@ -27,14 +26,16 @@
     </div>
     <div class="login-details-container">
       <h3 style="margin-bottom: 50px">USER LOGIN</h3>
-      <div class="login-details">
-        <input id="email" type="text" placeholder="Email" />
-        <input id="password" type="password" placeholder="Password" />
+      <div id="login-details">
+        <input id="login-email" type="email" placeholder="Email" />
+        <input id="login-password" type="password" placeholder="Password" />
       </div>
+      <div id="login-error" style="color: red"></div>
       <a href="">Forgot your password?</a>
       <a href="">
-        <button type="submit" id="login-btn">Login</button>
+        <button id="login-btn">Login</button>
       </a>
     </div>
+    <script type="module" src="app-js/login.js"></script>
   </body>
 </html>

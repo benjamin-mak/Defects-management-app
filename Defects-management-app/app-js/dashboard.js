@@ -5,7 +5,15 @@ import {
   projectCount,
   addIssueDB,
   lastNumber,
+  getProjectIssues,
+  issueCount,
+  issueCountAll,
+  issueCountAllMonth,
 } from "../data-storage-js/firebase-db.js";
+
+import { userSignOut, checkAuthState } from "./login.js";
+
+checkAuthState();
 
 /***** Event handlers object *****/
 export const eventHandlers = {
@@ -44,7 +52,6 @@ export const eventHandlers = {
       projectCount().then((count) => {
         addProjectToDB(projectName, count + 1);
       });
-
       eventHandlers.closeAddProject();
     } else {
       errorMessage.textContent = "Project name cannot be blank!";
@@ -76,57 +83,64 @@ export const eventHandlers = {
 
   // Display the total number of issues on the dashboard
   totalIssues: () => {
-    let div = document.querySelector("div#total");
-    div.textContent = issueCountAll();
+    issueCountAll().then((result) => {
+      let div = document.querySelector("div#total");
+      div.textContent = result;
+    });
   },
 
-  // Display the number of open/closed/high-priority issues
+  // Display the number of open/closed/high-priority issues on the dashboard
   totalIssuesSplit: () => {
-    let totalOpen = 0;
-    let totalHigh = 0;
-    const allProjects = getProjectDataObjAll();
-    for (let obj of allProjects) {
-      obj.issueArr.forEach((element) => {
-        if (element.status !== statusOptions[4]) totalOpen += 1;
-        if (element.priority === priorityOptions[1]) totalHigh += 1;
+    getProjectDataAll().then((allProjects) => {
+      issueCountAll().then((count) => {
+        let totalOpen = 0;
+        let totalHigh = 0;
+        for (let obj of allProjects) {
+          obj.issuesArr.forEach((element) => {
+            if (element.status !== statusOptions[4]) totalOpen += 1;
+            if (element.priority === priorityOptions[1]) totalHigh += 1;
+          });
+        }
+        let pOpen = document.querySelector("p#open");
+        pOpen.textContent = totalOpen;
+        let pHigh = document.querySelector("p#high-priority");
+        pHigh.textContent = totalHigh;
+        let pClosed = document.querySelector("p#closed");
+        pClosed.textContent = count - totalOpen;
       });
-    }
-    let pOpen = document.querySelector("p#open");
-    pOpen.textContent = totalOpen;
-    let pHigh = document.querySelector("p#high-priority");
-    pHigh.textContent = totalHigh;
-    let pClosed = document.querySelector("p#closed");
-    pClosed.textContent = issueCountAll() - totalOpen;
+    });
   },
 
   // Display the number of issues split by the different statuses
   totalIssuesStatus: () => {
-    let totalAssign = 0;
-    let totalRectify = 0;
-    let totalInspect = 0;
-    let totalClosed = 0;
-    issueCountAll() - totalAssign - totalRectify - totalInspect;
-    const allProjects = getProjectDataObjAll();
-    for (let obj of allProjects) {
-      obj.issueArr.forEach((element) => {
-        if (element.status === statusOptions[1]) totalAssign += 1;
-        if (element.status === statusOptions[2]) totalRectify += 1;
-        if (element.status === statusOptions[3]) totalInspect += 1;
-      });
-    }
-    let pAssign = document.querySelector("p#assign");
-    pAssign.textContent = totalAssign;
-    let pRectify = document.querySelector("p#rectify");
-    pRectify.textContent = totalRectify;
-    let pInspect = document.querySelector("p#inspection");
-    pInspect.textContent = totalInspect;
-    let pClosed = document.querySelector("p#status-closed");
-    totalClosed = issueCountAll() - totalAssign - totalRectify - totalInspect;
-    pClosed.textContent = totalClosed;
+    getProjectDataAll().then((allProjects) => {
+      issueCountAll().then((count) => {
+        let totalAssign = 0;
+        let totalRectify = 0;
+        let totalInspect = 0;
+        let totalClosed = 0;
+        for (let obj of allProjects) {
+          obj.issuesArr.forEach((element) => {
+            if (element.status === statusOptions[1]) totalAssign += 1;
+            if (element.status === statusOptions[2]) totalRectify += 1;
+            if (element.status === statusOptions[3]) totalInspect += 1;
+          });
+        }
+        let pAssign = document.querySelector("p#assign");
+        pAssign.textContent = totalAssign;
+        let pRectify = document.querySelector("p#rectify");
+        pRectify.textContent = totalRectify;
+        let pInspect = document.querySelector("p#inspection");
+        pInspect.textContent = totalInspect;
+        let pClosed = document.querySelector("p#status-closed");
+        totalClosed = count - totalAssign - totalRectify - totalInspect;
+        pClosed.textContent = totalClosed;
 
-    //Display the pie chart
-    const yValues = [totalAssign, totalRectify, totalInspect, totalClosed];
-    statusPieChart(yValues);
+        //Display the pie chart
+        const yValues = [totalAssign, totalRectify, totalInspect, totalClosed];
+        statusPieChart(yValues);
+      });
+    });
   },
 };
 
@@ -196,28 +210,30 @@ const dateBarChart = () => {
   ];
 
   // Get the number of issues per month
-  const yValues = [];
-  const issuesMonth = issueCountAllDate();
-  for (let month of xValues) {
-    yValues.push(issuesMonth[month]);
-  }
+  issueCountAllMonth().then((issuesMonth) => {
+    const yValues = [];
 
-  const barChart = document.querySelector("#date-bar-chart");
-  const barChartData = {
-    labels: xValues,
-    datasets: [
-      {
-        barPercentage: 0.7,
-        backgroundColor: "orange",
-        // borderColor: ,
-        data: yValues,
-      },
-    ],
-  };
+    for (let month of xValues) {
+      yValues.push(issuesMonth[month]);
+    }
 
-  new Chart(barChart, {
-    type: "bar",
-    data: barChartData,
+    const barChart = document.querySelector("#date-bar-chart");
+    const barChartData = {
+      labels: xValues,
+      datasets: [
+        {
+          barPercentage: 0.7,
+          backgroundColor: "orange",
+          // borderColor: ,
+          data: yValues,
+        },
+      ],
+    };
+
+    new Chart(barChart, {
+      type: "bar",
+      data: barChartData,
+    });
   });
 };
 
@@ -287,9 +303,7 @@ const datePriorityBarChart = () => {
 
 /***** Buttons *****/
 // Logout button - On click logouts and returns to login page
-document
-  .querySelector("#logout-btn")
-  .addEventListener("click", eventHandlers.logout);
+document.querySelector("#logout-btn").addEventListener("click", userSignOut);
 
 // Home button - On click, returns to home dashboard
 document
@@ -312,9 +326,9 @@ document
   .addEventListener("click", eventHandlers.newProject);
 
 // Project name popup window add button - on click, displays all projects in the project tab
-// document
-//   .querySelector("#project-name-popup-add")
-//   .addEventListener("click", eventHandlers.displayProjects);
+document
+  .querySelector("#project-name-popup-add")
+  .addEventListener("click", eventHandlers.displayProjects);
 
 /***** Other event listeners *****/
 // On refresh/load of dashboard page - display all projects in the project tab

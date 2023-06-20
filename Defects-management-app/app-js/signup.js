@@ -1,5 +1,6 @@
+// import { userSignUp } from "../data-storage-js/firebase-info.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+// import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -23,17 +24,18 @@ const app = initializeApp(firebaseConfig);
 // Initialise authentication
 const auth = getAuth(app);
 
-// Initialise database
-const db = getFirestore(app);
+// Get the signup details from the user input
+const userEmail = document.querySelector("#email");
+const userPassword = document.querySelector("#password");
 
-export default db;
-
-export const userSignUp = async (userEmail, userPassword) => {
+// function that creates a new user in firebase
+const userSignUp = async () => {
   const signUpEmail = userEmail.value;
   const signUpPassword = userPassword.value;
   createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
     .then((userCredential) => {
       alert("Your account has been created");
+      // Redirect to login page
     })
     .catch((error) => {
       const errorCode = error.errorCode;
@@ -41,3 +43,7 @@ export const userSignUp = async (userEmail, userPassword) => {
       console.log(errorCode + errorMessage);
     });
 };
+
+// Sign up button - on click saves the user details to the database
+const signUpBtn = document.querySelector("#signup-btn");
+signUpBtn.addEventListener("click", userSignUp);

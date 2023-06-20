@@ -15,6 +15,15 @@
   margin: 20px auto;
 }
 
+#login-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+  width: 300px;
+  gap: 10px;
+}
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -25,11 +34,4 @@
   text-align: center;
   margin: 30px 300px;
   padding: 30px 50px;
-}
-
-.login-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 20px;
 }

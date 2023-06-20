@@ -18,8 +18,6 @@ import {
 
 // Will use an admin account for now to store data
 const users = ["Admin-account"]; // Array that stores users
-// Object containing the project names with the responding project ID on firestore
-const projectIDs = {};
 
 //Functions//
 // Get an array of all the projects objects (get all documents from a collection). Sort by ascending project number
@@ -62,12 +60,15 @@ export async function projectCount() {
 }
 
 // Add a new project to the database
+//Works
 export async function addProjectToDB(projectName, num) {
   const collectionRef = collection(db, users[0]);
   const project = {
     number: num,
     name: projectName,
-    issuesArr: [{ initialise: "NA" }],
+    issuesArr: [
+      { number: 1, priority: "-", date: "-", status: "-", description: "-" },
+    ],
   };
   try {
     await addDoc(collectionRef, project);
@@ -77,6 +78,7 @@ export async function addProjectToDB(projectName, num) {
 }
 
 // Get the array of all issues for the specified project, sorted by ascending number
+// Works
 export async function getProjectIssues(projectName) {
   const projectObj = await getProjectData(projectName);
   const arr = projectObj.issuesArr;
@@ -91,6 +93,21 @@ export async function getProjectIssues(projectName) {
 }
 
 // Returns the current total number of issues for the specified project
+//Works
+export async function issueCount(projectName) {
+  const arr = await getProjectIssues(projectName);
+  return arr.length;
+}
+
+// Returns the total number of issues for all projects
+export async function issueCountAll() {
+  const allProjects = await getProjectDataAll();
+  let total = 0;
+  for (let obj of allProjects) {
+    total += obj.issuesArr.length;
+  }
+  return total;
+}
 
 // Add a new issue to the database for a specified project
 //Works
@@ -104,27 +121,47 @@ export async function addIssueDB(projectName, newIssueObj) {
   updateDoc(docRef, { issuesArr: arr });
 }
 
-// Update an issue in a specified project
-export async function updateIssueDB(projectName) {
+// Update an issue of a specified project in the database
+export async function updateIssueDB(projectName, issueArr) {
   // Get the document ID
-
-  const docRef = (db, users[0], docID);
-  const data = {
-    issuesArr: [],
-  };
+  const projectObj = await getProjectData(projectName);
+  const docRef = doc(db, users[0], projectObj.id);
+  updateDoc(docRef, { issuesArr: issueArr });
 }
-
-// Returns the total number of issues for all projects
 
 // Keep track of and return the last issue id number
 export async function lastNumber(projectName) {
   const arr = await getProjectIssues(projectName);
 
   if (arr.length === 1) {
-    return 0;
+    return 1;
   } else {
     return arr[arr.length - 1].number;
   }
+}
+
+// Returns an object of total number of issues for all projects split by month
+export async function issueCountAllMonth() {
+  const dateObj = {};
+  const allProjects = await getProjectDataAll();
+  for (let obj of allProjects) {
+    // For each project object, loop through each issue
+    for (let i = 0; i < obj.issuesArr.length; i++) {
+      // Get the month of each issue
+      let dateString = obj.issuesArr[i].date;
+      let date = new Date(dateString);
+      let month = date.toLocaleString("default", { month: "short" });
+      // if month is in dateObj, add 1 to month
+      if (dateObj.hasOwnProperty(month)) {
+        dateObj[month] += 1;
+      } else {
+        // else add month to dateObj
+        dateObj[month] = 1;
+      }
+    }
+  }
+
+  return dateObj;
 }
 
 // Get all the project IDs and corresponding project name
