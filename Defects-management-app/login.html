@@ -5,36 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="css/login.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
-      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
-      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-      crossorigin="anonymous"
-    ></script>
   </head>
   <body>
-    <div id="banner">Banner</div>
-    <h2 style="text-align: center">Welcome back! Login to continue.</h2>
-    <div class="login-container">
-      <div id="login-pg">LOGIN</div>
-      <div id="signup-pg"><a href="signup.html">SIGN UP</a></div>
-    </div>
-    <div class="login-details-container">
-      <h3 style="margin-bottom: 50px">USER LOGIN</h3>
-      <div id="login-details">
-        <input id="login-email" type="email" placeholder="Email" />
-        <input id="login-password" type="password" placeholder="Password" />
+    <div id="banner"></div>
+    <div id="login-page-container">
+      <div class="welcome-container">
+        <h1 style="text-align: center; margin-bottom: 0">Welcome back!</h1>
+        <h1 style="text-align: center; margin-top: 0">Login to continue</h1>
+        <div class="login-container">
+          <div id="login-pg">LOGIN</div>
+          <div id="signup-pg">
+            <a href="signup.html" style="color: white">SIGN UP</a>
+          </div>
+        </div>
       </div>
-      <div id="login-error" style="color: red"></div>
-      <a href="">Forgot your password?</a>
-      <a href="">
-        <button id="login-btn">Login</button>
-      </a>
+      <div class="login-details-container">
+        <h2 style="margin-bottom: 5px">USER LOGIN</h2>
+        <p style="font-style: italic">
+          Please enter your registered email and password
+        </p>
+        <div id="login-details">
+          <p style="margin: 0; text-align: left">E-mail</p>
+          <input id="login-email" type="email" placeholder="Email" />
+          <p style="margin: 0; text-align: left">Password</p>
+          <input id="login-password" type="password" placeholder="Password" />
+        </div>
+        <div id="login-error" style="color: red"></div>
+        <a href="">Forgot your password?</a>
+        <div id="login-btn">Login</div>
+      </div>
     </div>
     <script type="module" src="app-js/login.js"></script>
   </body>

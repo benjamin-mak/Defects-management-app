@@ -1,38 +1,45 @@
-#banner {
+/* #banner {
   height: 40px;
   background-color: #0091d5;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-}
+} */
 
-#home-btn,
-#profile-btn,
-#logout-btn,
 #add-issue-btn {
-  border: 3px solid red;
-  font-size: x-large;
+  font-size: xx-large;
+  color: white;
 }
 
-#add-issue-btn:hover {
+/* #add-issue-btn:hover {
+  cursor: pointer;
+} */
+
+#add-issue-btn:hover span {
+  display: none;
+}
+
+#add-issue-btn:hover:before {
+  content: "Add issue";
+  font-size: large;
   cursor: pointer;
 }
 
-#projects-tab {
+/* #projects-tab {
   background-color: antiquewhite;
   position: fixed;
   height: 100%;
   width: 150px;
   left: 0;
   top: 40px;
-}
+} */
 
-#add-project {
+/* #add-project {
   border: 2px solid red;
   padding: 5px;
   margin: 5px 3px;
-}
+} */
 
 #delete-popup-close-btn,
 #update-popup-close-btn {
@@ -76,7 +83,7 @@
   pointer-events: all;
 }
 
-#main-background {
+/* #main-background {
   left: 150px;
   top: 40px;
   background-color: #f1f1f1;
@@ -84,12 +91,7 @@
   height: 100%;
   width: 100%;
   overflow-y: auto;
-}
-
-.banner-btns {
-  display: flex;
-  justify-content: space-between;
-}
+} */
 
 .project {
   border: 2px solid red;
@@ -126,7 +128,9 @@
 }
 
 .issue-main-container {
-  border: 1px solid red;
+  border: 2px solid #202020;
+  border-radius: 10px;
+  background-color: white;
   padding: 20px;
   margin: 20px;
   width: 80%;
@@ -140,7 +144,7 @@
 
 .issue-btns {
   float: right;
-  margin: -20px -20px 0 0;
+  margin: -20px -15px 0 0;
   display: flex;
   gap: 2px;
 }
@@ -152,7 +156,7 @@
 }
 
 .row-box {
-  border: 1px solid red;
+  border: 1px solid black;
   padding: 4px;
   width: 120px;
   text-align: center;
@@ -162,4 +166,22 @@
   margin-top: 10px;
   border: 1px solid red;
   padding: 4px;
+}
+
+.update-btn {
+  background-color: #0091d5;
+  border: none;
+  border-radius: 2px;
+  color: white;
+}
+.delete-btn {
+  background-color: red;
+  border: none;
+  border-radius: 2px;
+  color: white;
+}
+
+.update-btn:hover,
+.delete-btn:hover {
+  cursor: pointer;
 }

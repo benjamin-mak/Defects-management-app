@@ -24,26 +24,37 @@ const app = initializeApp(firebaseConfig);
 // Initialise authentication
 const auth = getAuth(app);
 
-// Get the signup details from the user input
-const userEmail = document.querySelector("#email");
-const userPassword = document.querySelector("#password");
+// Function that shows an error on the signup page
+const signupError = () => {
+  let div = document.querySelector("#signup-error");
+  div.textContent = "";
+  setTimeout(() => {
+    div.textContent = "Email/password already exists. Try again.";
+  }, 300);
+};
 
 // function that creates a new user in firebase
-const userSignUp = async () => {
+const userSignUp = async (event) => {
   const signUpEmail = userEmail.value;
   const signUpPassword = userPassword.value;
   createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
     .then((userCredential) => {
       alert("Your account has been created");
       // Redirect to login page
+      window.location.assign("/Defects-management-app/login.html");
     })
     .catch((error) => {
       const errorCode = error.errorCode;
       const errorMessage = error.message;
       console.log(errorCode + errorMessage);
+      signupError();
     });
 };
 
 // Sign up button - on click saves the user details to the database
 const signUpBtn = document.querySelector("#signup-btn");
 signUpBtn.addEventListener("click", userSignUp);
+
+// Get the signup details from the user input
+const userEmail = document.querySelector("#signup-email");
+const userPassword = document.querySelector("#signup-password");

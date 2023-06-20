@@ -30,12 +30,8 @@ const eventHandlers = {
   },
 };
 
-// Get login details from user input
-const userEmail = document.querySelector("#login-email");
-const userPassword = document.querySelector("#login-password");
-
 /**** Functions *****/
-// Function that shows an error if the user credentials are wrong
+// Function that shows an error on the login page if the user credentials are wrong
 const loginError = () => {
   let div = document.querySelector("#login-error");
   div.textContent = "";
@@ -54,7 +50,11 @@ const userLogin = async () => {
       loginEmail,
       loginPassword
     );
-    // alert("Login success");
+    alert("Login success");
+    // Redirect to dashboard home page
+    // window.location.assign(
+    //   "/Defects-management-app/dashboard-html/dashboard.html"
+    // );
     // console.log(userCredential.user);
   } catch (error) {
     const errorCode = error.errorCode;
@@ -63,25 +63,36 @@ const userLogin = async () => {
     // Show error message on the page
     loginError();
   }
+  checkAuthState();
 };
 
 // Function that checks the current authentication state
 export const checkAuthState = async () => {
   onAuthStateChanged(auth, (user) => {
+    // If user is signed into firebase, redirect to dashboard home
     if (user) {
-      window.location = "/Defects-management-app/dashboard-html/dashboard.html";
+      window.location.assign(
+        "/Defects-management-app/dashboard-html/dashboard.html"
+      );
     } else {
-      window.location = "/Defects-management-app/login.html";
+      // if not, redirect to login page
+      window.location.assign("/Defects-management-app/login.html");
     }
   });
 };
 
-// Function that signs the user out
-export async function userSignOut() {
-  await signOut(auth);
-}
-
-// checkAuthState();
+// Function that signs the user out of firebase
+export const userLogout = async () => {
+  try {
+    await signOut(auth);
+    alert("You have signed out successfully.");
+  } catch (error) {
+    const errorCode = error.errorCode;
+    const errorMessage = error.message;
+    console.log(errorCode + errorMessage);
+    alert("Unable to sign out.");
+  }
+};
 
 // Buttons //
 // Login button - on click, validates user credentials
@@ -90,9 +101,6 @@ document.querySelector("#login-btn").addEventListener("click", (e) => {
   userLogin();
 });
 
-// document.querySelector("#login-btn").addEventListener("click", checkAuthState);
-
-// Add dashboardHome event to login button
-// document
-//   .querySelector("#login-btn")
-//   .addEventListener("click", eventHandlers.dashboardHome);
+// Get login details from user input
+const userEmail = document.querySelector("#login-email");
+const userPassword = document.querySelector("#login-password");

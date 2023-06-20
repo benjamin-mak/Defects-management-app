@@ -21,7 +21,6 @@ const users = ["Admin-account"]; // Array that stores users
 
 //Functions//
 // Get an array of all the projects objects (get all documents from a collection). Sort by ascending project number
-// Works
 export async function getProjectDataAll() {
   const documentArr = [];
   try {
@@ -42,7 +41,6 @@ export async function getProjectDataAll() {
 }
 
 // Get the data as an object for a specified project
-// Works
 export async function getProjectData(projectName) {
   // array of all projects
   const allProjects = await getProjectDataAll();
@@ -53,14 +51,12 @@ export async function getProjectData(projectName) {
 }
 
 //Return the current number of projects in the database
-// Works
 export async function projectCount() {
   const arr = await getProjectDataAll();
   return arr.length;
 }
 
 // Add a new project to the database
-//Works
 export async function addProjectToDB(projectName, num) {
   const collectionRef = collection(db, users[0]);
   const project = {
@@ -78,7 +74,6 @@ export async function addProjectToDB(projectName, num) {
 }
 
 // Get the array of all issues for the specified project, sorted by ascending number
-// Works
 export async function getProjectIssues(projectName) {
   const projectObj = await getProjectData(projectName);
   const arr = projectObj.issuesArr;
@@ -93,7 +88,6 @@ export async function getProjectIssues(projectName) {
 }
 
 // Returns the current total number of issues for the specified project
-//Works
 export async function issueCount(projectName) {
   const arr = await getProjectIssues(projectName);
   return arr.length;
@@ -110,7 +104,6 @@ export async function issueCountAll() {
 }
 
 // Add a new issue to the database for a specified project
-//Works
 export async function addIssueDB(projectName, newIssueObj) {
   const projectObj = await getProjectData(projectName);
   const arr = projectObj.issuesArr;

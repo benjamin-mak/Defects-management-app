@@ -1,6 +1,10 @@
+h3 {
+  margin: 5px 0px;
+}
+
 #banner {
-  height: 40px;
-  background-color: #0091d5;
+  height: 50px;
+  background-color: #1c4e80;
   position: fixed;
   top: 0;
   left: 0;
@@ -9,35 +13,62 @@
 
 #home-btn,
 #profile-btn,
-#logout-btn,
-#add-issue-btn {
-  border: 3px solid red;
-  font-size: x-large;
+#logout-btn {
+  font-size: xx-large;
+  color: white;
 }
 
 #projects-tab {
-  background-color: antiquewhite;
+  background-color: #dadada;
   position: fixed;
   height: 100%;
   width: 150px;
   left: 0;
-  top: 40px;
+  top: 50px;
 }
 
 #add-project {
-  border: 2px solid red;
   padding: 5px;
   margin: 5px 3px;
 }
 
 #add-project:hover {
-  background-color: rgb(209, 139, 34);
+  background-color: #7e909a;
   cursor: pointer;
+}
+
+#add-project:hover span {
+  display: none;
+}
+
+#add-project:hover:before {
+  content: "+ Add Project";
+  font-size: medium;
+}
+
+#assign,
+#rectify,
+#inspection,
+#status-closed {
+  font-size: x-large;
+  margin: 10px 0;
+}
+
+#closed {
+  font-size: x-large;
+  color: green;
+  margin: 10px 0;
+}
+
+#high-priority {
+  font-size: x-large;
+  color: red;
+  margin: 10px 0;
 }
 
 #main-background {
   left: 150px;
-  top: 40px;
+  top: 50px;
   background-color: #f1f1f1;
   position: fixed;
   height: 100%;
@@ -46,16 +77,17 @@
 
 #main-container {
   display: flex;
-  gap: 75px;
+  gap: 50px;
 }
 
 #total-box,
 #issues-month-box,
 #status-box {
-  border: 2px solid red;
-  padding: 10px;
+  /* border: 2px solid red; */
+  padding: 5px;
   width: 580px;
   margin: 20px;
+  background-color: white;
 }
 
 #project-name-popup-add {
@@ -92,6 +124,12 @@
   pointer-events: all;
 }
 
+#open {
+  font-size: x-large;
+  color: orange;
+  margin: 10px 0;
+}
+
 #status-pie-chart {
   width: 75%;
   max-width: 500px;
@@ -101,11 +139,15 @@
 
 .banner-btns {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
+  margin-left: 10px;
+  height: 50px;
 }
 
 .number {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   margin: 0 auto;
   width: 120px;
   text-align: center;
@@ -117,7 +159,7 @@
 
 .centre {
   display: block;
-  margin: 0px auto 30px auto;
+  margin: 0px auto 10px auto;
   text-align: center;
 }
 
@@ -125,6 +167,11 @@
   border: 2px solid red;
   padding: 5px;
   margin: 5px;
+}
+
+.project:hover {
+  background-color: #7e909a;
+  cursor: pointer;
 }
 
 .project-name-popup {

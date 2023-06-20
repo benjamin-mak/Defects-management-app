@@ -11,9 +11,9 @@ import {
   issueCountAllMonth,
 } from "../data-storage-js/firebase-db.js";
 
-import { userSignOut, checkAuthState } from "./login.js";
+import { userLogout, checkAuthState } from "./login.js";
 
-checkAuthState();
+// checkAuthState();
 
 /***** Event handlers object *****/
 export const eventHandlers = {
@@ -170,7 +170,7 @@ const statusPieChart = (yValues) => {
     labels: xValues,
     datasets: [
       {
-        backgroundColor: ["pink", "red", "blue", "green"],
+        backgroundColor: ["#1c4e80", "#ea6a47", "#0091d5", "green"],
         data: yValues,
         borderColor: "lightgrey",
       },
@@ -230,6 +230,7 @@ const dateBarChart = () => {
       ],
     };
 
+    //Creates the bar chart
     new Chart(barChart, {
       type: "bar",
       data: barChartData,
@@ -303,7 +304,10 @@ const datePriorityBarChart = () => {
 
 /***** Buttons *****/
 // Logout button - On click logouts and returns to login page
-document.querySelector("#logout-btn").addEventListener("click", userSignOut);
+document.querySelector("#logout-btn").addEventListener("click", (e) => {
+  // e.preventDefault();
+  userLogout();
+});
 
 // Home button - On click, returns to home dashboard
 document
