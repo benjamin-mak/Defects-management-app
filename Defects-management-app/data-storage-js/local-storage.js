@@ -1,20 +1,10 @@
-/*** Global Variables ****/
-const priorityOptions = ["--Select--", "High", "Medium", "Low"];
-const statusOptions = [
-  "--Select--",
-  "To assign",
-  "To rectify",
-  "For inspection",
-  "Closed",
-];
-
 // Functions //
-// Save project to the session storage
+// Save project to the local storage
 function saveProject(projectName, projectDataObj) {
   localStorage.setItem(projectName, JSON.stringify(projectDataObj));
 }
 
-// Retrieve project data as an object from the session storage
+// Retrieve project data as an object from the local storage
 function getProjectDataObj(projectName) {
   const stringData = localStorage.getItem(projectName);
   const dataObj = stringData ? JSON.parse(stringData) : {};

@@ -4,21 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project Template</title>
-    <link rel="stylesheet" href="../css/project.css" />
     <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/project.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
     <div id="banner">
       <div class="banner-btns">
-        <a href="dashboard.html" id="home-btn">Home</a>
-        <a id="add-issue-btn">Add Issue</a>
-        <a href="" id="profile-btn">Profile</a>
-        <a href="" id="logout-btn">Logout</a>
+        <a href="dashboard.html" id="home-btn"
+          ><i class="material-icons">house</i></a
+        >
+        <a href="" id="profile-btn"
+          ><i class="material-icons">account_circle</i></a
+        >
+        <a href="" id="logout-btn"><i class="material-icons">logout</i></a>
+        <a id="add-issue-btn"
+          ><span><i class="material-icons">add</i></span></a
+        >
       </div>
     </div>
 
     <div id="projects-tab">
-      <h3 id="add-project">Projects</h3>
+      <h3 id="add-project"><span>Projects</span></h3>
     </div>
 
     <div id="main-background">
@@ -42,43 +52,46 @@
 
       <h1 id="project-title">Title</h1>
 
-      <!--
-      <div class="issue-main-container">
+      <div class="issue-main-container" id="1">
         <div class="issue-btns">
-          <button id="update-btn">Update</button>
-          <button id="delete-btn">Delete</button>
+          <button class="update-btn">Update</button>
+          <button class="delete-btn">Delete</button>
         </div>
         <div class="issue-sub-container">
           <div class="issue-container-left">
             <div class="row">
               <div class="row-box">
                 <div>Issue number</div>
-                <div class="issue-number"></div>
+                <div class="issue-number">1</div>
               </div>
               <div class="row-box">
                 <div>Priority</div>
                 <select class="priority">
+                  <option>--Select--</option>
                   <option>High</option>
                   <option>Medium</option>
                   <option>Low</option>
                 </select>
+                <div></div>
               </div>
               <div class="row-box">
                 <div>Date</div>
-                <input type="date" class="date-input"/>
+                <input type="date" class="date-input" />
+                <div></div>
               </div>
               <div class="row-box">
                 <div>Status</div>
                 <select class="status">
+                  <option>--Select--</option>
                   <option>To assign</option>
                   <option>To rectify</option>
                   <option>For inspection</option>
                   <option>Closed</option>
                 </select>
+                <div></div>
               </div>
             </div>
-            <label for="freeform">Description:</label>
-            <br />
+            <label for="freeform">Description:</label> <br />
             <textarea class="freeform" name="freeform" rows="10" cols="70">
             </textarea>
           </div>
@@ -88,11 +101,12 @@
           </div>
         </div>
       </div>
-      --->
     </div>
 
-    <script src="../js/dashboard.js"></script>
-    <script src="../js/store-data.js"></script>
-    <script src="../js/project.js" defer></script>
+    <script src="../app-js/global-variables.js"></script>
+    <script type="module" src="../app-js/project.js"></script>
+    <!-- <script type="module" src="../app-js/dashboard.js"></script> -->
+    <!-- <script type="module" src="../data-storage-js/firebase-info.js"></script> -->
+    <!-- <script type="module" src="../data-storage-js/firebase-db.js"></script> -->
   </body>
 </html>
