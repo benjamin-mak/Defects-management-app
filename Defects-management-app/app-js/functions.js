@@ -18,6 +18,7 @@ import {
   issueCount,
   issueCountAll,
   issueCountAllMonth,
+  issueCountAllMonthPriority,
 } from "../data-storage-js/firebase-db.js";
 
 const firebaseConfig = {
@@ -348,48 +349,75 @@ export const datePriorityBarChart = () => {
   ];
 
   // Get the number of issues per month
-  const yValuesHigh = [];
-  const yValuesMedium = [];
-  const yValuesLow = [];
-  const issuesMonth = issueCountDatePriority();
-  for (let month of xValues) {
-    if (issuesMonth.hasOwnProperty(month)) {
-      for (const obj in issuesMonth[month]) {
-        // yValuesHigh.push(obj[priorityOptions[1]]);
-        yValuesHigh.push(obj["High"]);
-        // yValuesMedium.push(obj[priorityOptions[2]]);
-        yValuesMedium.push(obj["Medium"]);
-        // yValuesLow.push(obj[priorityOptions[3]]);
-        yValuesLow.push(obj["Low"]);
+  const yValuesHigh = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const yValuesMedium = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const yValuesLow = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  issueCountAllMonthPriority().then((issuesMonth) => {
+    for (let month of xValues) {
+      if (issuesMonth.hasOwnProperty(month)) {
+        // Find the index of that month
+        let index = xValues.indexOf(month);
+        yValuesHigh[index] += issuesMonth[month][priorityOptions[1]];
+        yValuesMedium[index] += issuesMonth[month][priorityOptions[2]];
+        yValuesLow[index] += issuesMonth[month][priorityOptions[3]];
       }
     }
-  }
-  console.log(yValuesHigh);
 
-  const barChart = document.querySelector("#date-bar-chart");
-  const barChartData = {
-    labels: xValues,
-    datasets: [
-      {
-        label: "High",
-        backgroundColor: "red",
-        data: yValuesHigh,
-      },
-      {
-        label: "Medium",
-        backgroundColor: "orange",
-        data: yValuesMedium,
-      },
-      {
-        label: "Low",
-        backgroundColor: "yellow",
-        data: yValuesLow,
-      },
-    ],
-  };
+    const barChart = document.querySelector("#date-bar-chart");
+    const barChartData = {
+      labels: xValues,
+      datasets: [
+        {
+          label: "High",
+          backgroundColor: "red",
+          data: yValuesHigh,
+        },
+        {
+          label: "Medium",
+          backgroundColor: "orange",
+          data: yValuesMedium,
+        },
+        {
+          label: "Low",
+          backgroundColor: "yellow",
+          data: yValuesLow,
+        },
+      ],
+    };
 
-  new Chart(barChart, {
-    type: "bar",
-    data: barChartData,
+    new Chart(barChart, {
+      type: "bar",
+      data: barChartData,
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: "Number of defects by priority",
+          },
+        },
+        responsive: true,
+        scales: {
+          x: {
+            stacked: true,
+            grid: { display: false },
+          },
+          y: {
+            stacked: true,
+            title: { display: true, text: "Total number" },
+            ticks: {
+              beginAtZero: true,
+              callback: function (value) {
+                if (value % 1 === 0) {
+                  return value;
+                } else {
+                  return "";
+                }
+              },
+            },
+          },
+        },
+      },
+    });
   });
 };

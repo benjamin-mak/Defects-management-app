@@ -66,7 +66,7 @@ export async function addProjectToDB(projectName, num) {
       {
         number: 1,
         priority: "-",
-        date: "-",
+        date: "",
         status: "To assign",
         description: "",
       },
@@ -156,6 +156,33 @@ export async function issueCountAllMonth() {
       } else {
         // else add month to dateObj
         dateObj[month] = 1;
+      }
+    }
+  }
+
+  return dateObj;
+}
+
+// Returns an object of the total number of issues for all projects split by month and priority
+export async function issueCountAllMonthPriority() {
+  const dateObj = {};
+  const allProjects = await getProjectDataAll();
+  for (let obj of allProjects) {
+    // For each project object, loop through each issue
+    for (let i = 0; i < obj.issuesArr.length; i++) {
+      // Get the month of each issue
+      let dateString = obj.issuesArr[i].date;
+      let date = new Date(dateString);
+      let month = date.toLocaleString("default", { month: "short" });
+      let priority = obj.issuesArr[i].priority;
+
+      // if month is in dateObj, add 1 to month
+      if (dateObj.hasOwnProperty(month)) {
+        dateObj[month][priority] += 1;
+      } else {
+        // else add month to dateObj
+        dateObj[month] = { High: 0, Medium: 0, Low: 0 };
+        dateObj[month][priority] += 1;
       }
     }
   }

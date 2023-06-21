@@ -11,6 +11,7 @@
 //   issueCountAllMonth,
 // } from "../data-storage-js/firebase-db.js";
 
+import { issueCountAllMonthPriority } from "../data-storage-js/firebase-db.js";
 import {
   userLogout,
   checkAuthState,
@@ -68,4 +69,9 @@ eventHandlers.displayProjects();
 eventHandlers.totalIssues();
 eventHandlers.totalIssuesSplit();
 eventHandlers.totalIssuesStatus();
-dateBarChart();
+// dateBarChart();
+datePriorityBarChart();
+
+issueCountAllMonthPriority().then((result) => {
+  console.log(result);
+});

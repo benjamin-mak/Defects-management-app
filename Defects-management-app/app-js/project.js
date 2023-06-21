@@ -53,7 +53,7 @@ const eventHandlersProject = {
       const newIssue = {
         number: lastNum,
         priority: "-",
-        date: "-",
+        date: "",
         status: statusOptions[1],
         description: "",
       };
