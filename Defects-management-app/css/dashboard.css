@@ -77,20 +77,28 @@ body {
 
 #main-background {
   /* left: 150px; */
-  left: 10%;
   /* top: 50px; */
+  left: 10%;
   top: 5%;
   background-color: #f1f1f1;
   position: fixed;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   overflow-y: scroll;
 }
 
 #main-container {
   display: flex;
-  gap: 50px;
-  width: 100%;
+  gap: 5vw;
+  margin: 20px;
+  /* width: 100%;
+  height: 100%; */
+  height: 100vh;
+}
+
+#main-container-left,
+#main-container-right {
+  width: 40vw;
   height: 100%;
 }
 
@@ -98,9 +106,38 @@ body {
 #issues-month-box,
 #status-box {
   padding: 5px;
-  width: 580px;
+  /* width: 580px; */
   margin: 20px;
   background-color: white;
+}
+
+#total-box {
+  width: 100%;
+  height: 25%;
+}
+
+#issues-month-box {
+  width: 100%;
+  height: 55%;
+}
+
+#status-box {
+  width: 100%;
+  height: 85%;
+}
+
+#date-bar-chart {
+  transform: scale(0.9);
+}
+
+#status-pie-chart {
+  /* margin-top: 15%;
+  /* margin-bottom: 5%; */
+  margin: 0 auto;
+  /* max-width: 500px;
+  max-height: 400px; */
+  width: 90%;
+  height: 90%;
 }
 
 #project-name-popup-add {
@@ -139,15 +176,8 @@ body {
 
 #open {
   font-size: x-large;
-  color: orange;
+  color: #4cb5f5;
   margin: 10px 0;
-}
-
-#status-pie-chart {
-  width: 75%;
-  max-width: 500px;
-  max-height: 380px;
-  margin: 0 auto;
 }
 
 .banner-btns {
@@ -160,7 +190,6 @@ body {
 }
 
 .number {
-  /* border: 2px solid blue; */
   margin: 0 auto;
   width: 120px;
   text-align: center;

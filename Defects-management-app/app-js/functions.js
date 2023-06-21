@@ -191,7 +191,11 @@ export const eventHandlers = {
         for (let obj of allProjects) {
           obj.issuesArr.forEach((element) => {
             if (element.status !== statusOptions[4]) totalOpen += 1;
-            if (element.priority === priorityOptions[1]) totalHigh += 1;
+            if (
+              element.priority === priorityOptions[1] &&
+              element.status !== statusOptions[4]
+            )
+              totalHigh += 1;
           });
         }
         let pOpen = document.querySelector("p#open");
@@ -279,6 +283,10 @@ export const statusPieChart = (yValues) => {
           formatter: (value) => {
             return value + "%";
           },
+        },
+        title: {
+          display: true,
+          text: "Total defects by status",
         },
       },
     },

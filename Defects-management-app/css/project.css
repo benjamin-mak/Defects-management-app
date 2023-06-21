@@ -60,6 +60,30 @@
   display: block;
 }
 
+#update-popup-btn {
+  background-color: #0091d5;
+  color: white;
+  border-radius: 5px;
+  border: none;
+}
+
+#update-popup-btn:hover {
+  cursor: pointer;
+  background-color: #3db1eb;
+}
+
+#delete-popup-btn {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  border: none;
+}
+
+#delete-popup-btn:hover {
+  cursor: pointer;
+  background-color: rgb(191, 28, 28);
+}
+
 #overlay,
 #overlay2 {
   position: fixed;
