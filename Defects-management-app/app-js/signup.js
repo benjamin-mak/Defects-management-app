@@ -35,8 +35,8 @@ const signupError = () => {
 
 // function that creates a new user in firebase
 const userSignUp = async (event) => {
-  const signUpEmail = userEmail.value;
-  const signUpPassword = userPassword.value;
+  const signUpEmail = signupEmailInput.value;
+  const signUpPassword = signupPasswordInput.value;
   createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
     .then((userCredential) => {
       alert("Your account has been created");
@@ -56,5 +56,5 @@ const signUpBtn = document.querySelector("#signup-btn");
 signUpBtn.addEventListener("click", userSignUp);
 
 // Get the signup details from the user input
-const userEmail = document.querySelector("#signup-email");
-const userPassword = document.querySelector("#signup-password");
+const signupEmailInput = document.querySelector("#signup-email");
+const signupPasswordInput = document.querySelector("#signup-password");

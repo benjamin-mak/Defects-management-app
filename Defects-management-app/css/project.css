@@ -12,10 +12,6 @@
   color: white;
 }
 
-/* #add-issue-btn:hover {
-  cursor: pointer;
-} */
-
 #add-issue-btn:hover span {
   display: none;
 }
@@ -83,20 +79,28 @@
   pointer-events: all;
 }
 
-/* #main-background {
-  left: 150px;
-  top: 40px;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-} */
+#project-title {
+  margin-left: 20px;
+}
 
-.project {
-  border: 2px solid red;
-  padding: 5px;
-  margin: 5px;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .delete-popup,

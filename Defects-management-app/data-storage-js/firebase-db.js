@@ -63,7 +63,13 @@ export async function addProjectToDB(projectName, num) {
     number: num,
     name: projectName,
     issuesArr: [
-      { number: 1, priority: "-", date: "-", status: "-", description: "-" },
+      {
+        number: 1,
+        priority: "-",
+        date: "-",
+        status: "To assign",
+        description: "",
+      },
     ],
   };
   try {
