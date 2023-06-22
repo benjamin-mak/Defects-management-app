@@ -189,5 +189,3 @@ export async function issueCountAllMonthPriority() {
 
   return dateObj;
 }
-
-// Get all the project IDs and corresponding project name

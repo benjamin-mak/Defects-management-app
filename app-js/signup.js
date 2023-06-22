@@ -1,12 +1,10 @@
-// import { userSignUp } from "../data-storage-js/firebase-info.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-// import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut,
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 const firebaseConfig = {
@@ -34,14 +32,14 @@ const signupError = () => {
 };
 
 // function that creates a new user in firebase
-const userSignUp = async (event) => {
+const userSignUp = async (signupEmailInput, signupPasswordInput) => {
   const signUpEmail = signupEmailInput.value;
   const signUpPassword = signupPasswordInput.value;
   createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
     .then((userCredential) => {
       alert("Your account has been created");
       // Redirect to login page
-      window.location.assign("/Defects-management-app/login.html");
+      window.location.assign("/login.html");
     })
     .catch((error) => {
       const errorCode = error.errorCode;
@@ -51,10 +49,13 @@ const userSignUp = async (event) => {
     });
 };
 
-// Sign up button - on click saves the user details to the database
-const signUpBtn = document.querySelector("#signup-btn");
-signUpBtn.addEventListener("click", userSignUp);
-
 // Get the signup details from the user input
 const signupEmailInput = document.querySelector("#signup-email");
 const signupPasswordInput = document.querySelector("#signup-password");
+
+// Sign up button - on click saves the user details to the database
+const signUpBtn = document.querySelector("#signup-btn");
+signUpBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  userSignUp(signupEmailInput, signupPasswordInput);
+});

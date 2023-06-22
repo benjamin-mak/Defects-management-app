@@ -1,16 +1,3 @@
-// import {
-//   addProjectToDB,
-//   getProjectDataAll,
-//   getProjectData,
-//   projectCount,
-//   addIssueDB,
-//   lastNumber,
-//   getProjectIssues,
-//   issueCount,
-//   issueCountAll,
-//   issueCountAllMonth,
-// } from "../data-storage-js/firebase-db.js";
-
 import { issueCountAllMonthPriority } from "../data-storage-js/firebase-db.js";
 import {
   userLogout,
@@ -49,29 +36,10 @@ document
   .querySelector("#project-name-popup-add")
   .addEventListener("click", eventHandlers.newProject);
 
-/***** Other event listeners *****/
-// On refresh/load of dashboard page - display all projects in the project tab
-// window.addEventListener("load", eventHandlers.displayProjects);
-
-// On refresh/load of dashboard page - display the total number of issues
-// Total number
-// window.addEventListener("load", eventHandlers.totalIssues);
-// // Total number of open/closed/high-priority issues
-// window.addEventListener("load", eventHandlers.totalIssuesSplit);
-// // Total number of issues split by status
-// window.addEventListener("load", eventHandlers.totalIssuesStatus);
-// // Total number of issues split by month
-// window.addEventListener("load", dateBarChart);
-
 /***** Main script *****/
 // Display all projects on first load
 eventHandlers.displayProjects();
 eventHandlers.totalIssues();
 eventHandlers.totalIssuesSplit();
 eventHandlers.totalIssuesStatus();
-// dateBarChart();
 datePriorityBarChart();
-
-issueCountAllMonthPriority().then((result) => {
-  console.log(result);
-});

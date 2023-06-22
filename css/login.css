@@ -8,6 +8,9 @@ body {
   font-family: "Catamaran", sans-serif;
 }
 
+p {
+  margin: 0;
+}
 /* #banner {
   background-color: #1c4e80;
   height: 50px;
@@ -66,6 +69,7 @@ body {
   justify-content: space-evenly;
   padding: 20px;
   width: 300px;
+  margin-top: 0;
 }
 
 #login-email,

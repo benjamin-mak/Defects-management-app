@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
@@ -15,7 +14,6 @@ import {
   addIssueDB,
   lastNumber,
   getProjectIssues,
-  issueCount,
   issueCountAll,
   issueCountAllMonth,
   issueCountAllMonthPriority,
@@ -53,7 +51,7 @@ export const userLogin = async (userEmail, userPassword) => {
     const errorCode = error.errorCode;
     const errorMessage = error.message;
     console.log(errorCode + errorMessage);
-    // Show error message on the page
+    // Show error message on the login page if login unsuccessful
     let div = document.querySelector("#login-error");
     div.textContent = "";
     setTimeout(() => {
@@ -117,7 +115,7 @@ export const eventHandlers = {
   newProject: () => {
     let errorMessage = document.querySelector("#project-name-popup-error");
     errorMessage.textContent = " ";
-    // Get the project name from user input
+    // Get the project name from user input box
     let projectName = document.querySelector(
       "input.project-name-popup-input"
     ).value;
@@ -126,8 +124,6 @@ export const eventHandlers = {
       projectCount().then((count) => {
         addProjectToDB(projectName, count + 1);
       });
-
-      // eventHandlers.displayProjects(); // Refactor this
       //invoke a function that adds the new project to the DOM
       eventHandlers.newProjectDOM(projectName);
       eventHandlers.closeAddProject();
@@ -138,6 +134,7 @@ export const eventHandlers = {
 
   //Add the new project to the DOM
   newProjectDOM: (projectName) => {
+    //Create a new div element and set the content to the project name
     let newProjectDiv = document.createElement("div");
     newProjectDiv.className = "project";
     newProjectDiv.textContent = projectName;
@@ -147,6 +144,7 @@ export const eventHandlers = {
         `/dashboard-html/project-template.html?page=${projectName}`
       );
     });
+    // Add the created div to the projects tab
     document.querySelector("#projects-tab").appendChild(newProjectDiv);
   },
 
@@ -182,13 +180,17 @@ export const eventHandlers = {
 
   // Display the number of open/closed/high-priority issues on the dashboard
   totalIssuesSplit: () => {
+    // retrieve all projects from firebase
     getProjectDataAll().then((allProjects) => {
       issueCountAll().then((count) => {
         let totalOpen = 0;
         let totalHigh = 0;
+        //For each project:
         for (let obj of allProjects) {
           obj.issuesArr.forEach((element) => {
+            // If the status of the defect is not closed, add to totalOpen
             if (element.status !== statusOptions[4]) totalOpen += 1;
+            // If the defect is of high priority and not closed, add to totalClose
             if (
               element.priority === priorityOptions[1] &&
               element.status !== statusOptions[4]
@@ -196,6 +198,7 @@ export const eventHandlers = {
               totalHigh += 1;
           });
         }
+        // add to the DOM
         let pOpen = document.querySelector("p#open");
         pOpen.textContent = totalOpen;
         let pHigh = document.querySelector("p#high-priority");
@@ -214,13 +217,18 @@ export const eventHandlers = {
         let totalRectify = 0;
         let totalInspect = 0;
         let totalClosed = 0;
+        // For each project:
         for (let obj of allProjects) {
           obj.issuesArr.forEach((element) => {
+            // If the status is to assign, +1 to totalAssign
             if (element.status === statusOptions[1]) totalAssign += 1;
+            // If the status is to rectify, +1 to totalRectify
             if (element.status === statusOptions[2]) totalRectify += 1;
+            // If the status is for inspection, +1 to totalInspect
             if (element.status === statusOptions[3]) totalInspect += 1;
           });
         }
+        // add to the DOM
         let pAssign = document.querySelector("p#assign");
         pAssign.textContent = totalAssign;
         let pRectify = document.querySelector("p#rectify");
@@ -228,10 +236,11 @@ export const eventHandlers = {
         let pInspect = document.querySelector("p#inspection");
         pInspect.textContent = totalInspect;
         let pClosed = document.querySelector("p#status-closed");
+        // total issues with status of closed is equal to the total number of issues miinus the other statuses
         totalClosed = count - totalAssign - totalRectify - totalInspect;
         pClosed.textContent = totalClosed;
 
-        //Display the pie chart
+        //Display the pie chart on the dashboard
         const yValues = [totalAssign, totalRectify, totalInspect, totalClosed];
         statusPieChart(yValues);
       });
@@ -354,13 +363,15 @@ export const datePriorityBarChart = () => {
     "Dec",
   ];
 
-  // Get the number of issues per month
+  // arrays storing the values of the number of defects per month per priority status
   const yValuesHigh = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   const yValuesMedium = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   const yValuesLow = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+  // Get the number of defects sorted per month from Jan to Dec
   issueCountAllMonthPriority().then((issuesMonth) => {
     for (let month of xValues) {
+      // If the month is in the array, then update the yValues arrays accordingly
       if (issuesMonth.hasOwnProperty(month)) {
         // Find the index of that month
         let index = xValues.indexOf(month);
