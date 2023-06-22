@@ -67,12 +67,10 @@ export const checkAuthState = async () => {
   onAuthStateChanged(auth, (user) => {
     // If user is signed into firebase, redirect to dashboard home
     if (user) {
-      window.location.assign(
-        "/Defects-management-app/dashboard-html/dashboard.html"
-      );
+      window.location.assign("/dashboard-html/dashboard.html");
     } else {
       // if not, redirect to login page
-      window.location.assign("/Defects-management-app/login.html");
+      window.location.assign("/login.html");
     }
   });
 };
@@ -146,7 +144,7 @@ export const eventHandlers = {
     // Add click event to the div that redirects to project page
     newProjectDiv.addEventListener("click", () => {
       window.location.assign(
-        `/Defects-management-app/dashboard-html/project-template.html?page=${projectName}`
+        `/dashboard-html/project-template.html?page=${projectName}`
       );
     });
     document.querySelector("#projects-tab").appendChild(newProjectDiv);
@@ -166,7 +164,7 @@ export const eventHandlers = {
         newProjectDiv.textContent = projectsArr[i].name;
         newProjectDiv.addEventListener("click", () => {
           window.location.assign(
-            `/Defects-management-app/dashboard-html/project-template.html?page=${projectsArr[i].name}`
+            `/dashboard-html/project-template.html?page=${projectsArr[i].name}`
           );
         });
         document.querySelector("#projects-tab").appendChild(newProjectDiv);
