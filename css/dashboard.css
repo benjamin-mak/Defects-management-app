@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap");
 
 html {
-  height: 100%;  
+  height: 100%;
 }
 
 h3 {
@@ -11,46 +11,13 @@ h3 {
 body {
   font-family: "Roboto", sans-serif;
   margin: 0px;
-  height: 100%; 
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */ 
+  height: 100%;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 body::-webkit-scrollbar {
   display: none;
-}
-
-#banner {
-  /* height: 50px; */
-  height: 50px;
-  background-color: #1c4e80;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-#home-btn,
-#profile-btn,
-#logout-btn {
-  font-size: xx-large;
-  color: white;
-}
-
-#container-project {
-  display: flex;
-  margin-top: 50px;
-  height: 100%;
-}
-
-#projects-tab {
-  background-color: #dadada;
-  /* position: fixed; */
-  height: 100%;
-  width: 15%;
-  /* left: 0; */
-  /* top: 50px; */
-  /* top: 5%; */
 }
 
 #add-project {
@@ -81,6 +48,32 @@ body::-webkit-scrollbar {
   margin: 10px 0;
 }
 
+#banner {
+  height: 50px;
+  background-color: #1c4e80;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#home-btn,
+#profile-btn,
+#logout-btn {
+  font-size: xx-large;
+  color: white;
+}
+
+#projects-tab {
+  background-color: #dadada;
+  height: 100%;
+  width: 10%;
+  /* position: fixed; */
+  /* left: 0; */
+  /* top: 50px; */
+  /* top: 5%; */
+}
+
 #closed {
   font-size: x-large;
   color: green;
@@ -93,15 +86,21 @@ body::-webkit-scrollbar {
   margin: 10px 0;
 }
 
+#main-container-project {
+  display: flex;
+  margin-top: 50px;
+  height: 100%;
+}
+
 #main-background {
   /* left: 150px; */
   /* top: 50px; */
   /* left: 10%;
   top: 5%; */
-  background-color: #f1f1f1;
   /* position: fixed; */
+  background-color: #f1f1f1;
   height: 100%;
-  width: 85%;
+  width: 90%;
   overflow-y: scroll;
 }
 
@@ -109,9 +108,7 @@ body::-webkit-scrollbar {
   display: flex;
   gap: 30px;
   margin: 20px;
-  /* width: 100%;
-  height: 100%; */
-  width: 92%;
+  width: 90%;
   height: 100vh;
   box-sizing: border-box;
 }
@@ -126,8 +123,6 @@ body::-webkit-scrollbar {
 #issues-month-box,
 #status-box {
   padding: 5px;
-  /* width: 580px; */
-  /* margin: 20px; */
   margin-bottom: 20px;
   background-color: white;
 }
@@ -155,8 +150,6 @@ body::-webkit-scrollbar {
   /* margin-top: 15%;
   /* margin-bottom: 5%; */
   margin: 0 auto;
-  /* max-width: 500px;
-  max-height: 400px; */
   width: 90%;
   height: 90%;
 }

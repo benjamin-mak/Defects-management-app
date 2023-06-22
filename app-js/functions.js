@@ -3,8 +3,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
-  
+  signOut,
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 import {
@@ -62,31 +61,31 @@ export const userLogin = async (userEmail, userPassword) => {
 };
 
 // Function that checks the current authentication state
-export const checkAuthState = () => {  
-  onAuthStateChanged(auth, (user) => {    
-    // If user is signed into firebase, redirect to dashboard home    
-    if (user) {            
+export const checkAuthState = () => {
+  onAuthStateChanged(auth, (user) => {
+    // If user is signed into firebase, redirect to dashboard home
+    if (user) {
       window.location.assign("/dashboard-html/dashboard.html");
     } else {
       // if not, redirect to login page
       window.location.assign("/login.html");
-    }    
-  }); 
-  
+    }
+  });
 };
 
-export const checkIfUserIsLoggedIn = () => { return new Promise( function(resolve, reject) {
-    onAuthStateChanged(auth, (user) => {    
-      // If user is signed into firebase, redirect to dashboard home    
-      if (user) {     
-        resolve(false);        
+// Function that checks if the user is logged into firebase
+export const checkIfUserIsLoggedIn = () => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, (user) => {
+      // If the user is logged in to firebase, return true
+      if (user) {
+        resolve(true);
       } else {
-        resolve(true);        
-      }    
-    }); 
+        resolve(false);
+      }
+    });
   });
-}
-
+};
 
 // Function that signs the user out of firebase
 export const userLogout = async () => {
@@ -311,6 +310,7 @@ export const statusPieChart = (yValues) => {
           text: "Total defects by status",
         },
       },
+      aspectRatio: 1.2,
     },
   });
 };

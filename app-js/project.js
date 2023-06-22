@@ -7,7 +7,12 @@ import {
   lastNumber,
 } from "../data-storage-js/firebase-db.js";
 
-import { eventHandlers, removeSiblings, userLogout } from "./functions.js";
+import {
+  eventHandlers,
+  removeSiblings,
+  userLogout,
+  checkIfUserIsLoggedIn,
+} from "./functions.js";
 
 /***** Event handlers object *****/
 const eventHandlersProject = {
@@ -248,6 +253,14 @@ document.querySelector("#logout-btn").addEventListener("click", (e) => {
 });
 
 /* Main script */
+// Check whether the user is logged in
+checkIfUserIsLoggedIn().then((res) => {
+  // if user is not logged in, redirect the user to the login page
+  if (!res) {
+    window.location.assign("/login.html");
+  }
+});
+
 //Update header title
 document.querySelector("head title").textContent =
   "Project | " + getProjectName();

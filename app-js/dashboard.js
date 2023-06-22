@@ -6,16 +6,9 @@ import {
   removeSiblings,
   statusPieChart,
   dateBarChart,
-  datePriorityBarChart,    
-  checkIfUserIsLoggedIn
+  datePriorityBarChart,
+  checkIfUserIsLoggedIn,
 } from "./functions.js";
-
-checkIfUserIsLoggedIn().then( res => {
-  if(res) {
-    window.location.assign("/login.html");
-  }
-});
-
 
 /***** Buttons *****/
 // Logout button - On click logouts and returns to login page
@@ -45,6 +38,14 @@ document
   .addEventListener("click", eventHandlers.newProject);
 
 /***** Main script *****/
+// Check whether the user is logged in
+checkIfUserIsLoggedIn().then((res) => {
+  // if user is not logged in, redirect the user to the login page
+  if (!res) {
+    window.location.assign("/login.html");
+  }
+});
+
 // Display all projects on first load
 eventHandlers.displayProjects();
 eventHandlers.totalIssues();
