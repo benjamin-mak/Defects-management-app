@@ -3,7 +3,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut,
+  signOut
+  
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 import {
@@ -61,17 +62,31 @@ export const userLogin = async (userEmail, userPassword) => {
 };
 
 // Function that checks the current authentication state
-export const checkAuthState = async () => {
-  onAuthStateChanged(auth, (user) => {
-    // If user is signed into firebase, redirect to dashboard home
-    if (user) {
+export const checkAuthState = () => {  
+  onAuthStateChanged(auth, (user) => {    
+    // If user is signed into firebase, redirect to dashboard home    
+    if (user) {            
       window.location.assign("/dashboard-html/dashboard.html");
     } else {
       // if not, redirect to login page
       window.location.assign("/login.html");
-    }
-  });
+    }    
+  }); 
+  
 };
+
+export const checkIfUserIsLoggedIn = () => { return new Promise( function(resolve, reject) {
+    onAuthStateChanged(auth, (user) => {    
+      // If user is signed into firebase, redirect to dashboard home    
+      if (user) {     
+        resolve(false);        
+      } else {
+        resolve(true);        
+      }    
+    }); 
+  });
+}
+
 
 // Function that signs the user out of firebase
 export const userLogout = async () => {

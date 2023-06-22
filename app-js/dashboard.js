@@ -6,8 +6,16 @@ import {
   removeSiblings,
   statusPieChart,
   dateBarChart,
-  datePriorityBarChart,
+  datePriorityBarChart,    
+  checkIfUserIsLoggedIn
 } from "./functions.js";
+
+checkIfUserIsLoggedIn().then( res => {
+  if(res) {
+    window.location.assign("/login.html");
+  }
+});
+
 
 /***** Buttons *****/
 // Logout button - On click logouts and returns to login page

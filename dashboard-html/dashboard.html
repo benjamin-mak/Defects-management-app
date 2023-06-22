@@ -19,86 +19,88 @@
       </div>
     </div>
 
-    <div id="projects-tab">
-      <h3 id="add-project"><span>Projects</span></h3>
-    </div>
-
-    <div id="main-background">
-      <!---Add projects-->
-      <div class="project-name-popup" id="project-name-popup-id">
-        <div class="project-name-popup-header">
-          <div style="font-size: x-large; font-weight: bold">Add project</div>
-          <button id="project-name-popup-close-btn">&#10006;</button>
-        </div>
-        <div class="project-name-popup-body">
-          <div style="font-weight: bold">Name</div>
-          <input
-            class="project-name-popup-input"
-            type="text"
-            onfocus="this.value=''"
-          />
-          <div id="project-name-popup-error"></div>
-        </div>
-        <button id="project-name-popup-add">Add</button>
+    <div id="container-project">
+      <div id="projects-tab">
+        <h3 id="add-project"><span>Projects</span></h3>
       </div>
-      <div id="overlay"></div>
 
-      <div id="main-container">
-        <div id="main-container-left">
-          <div id="total-box">
-            <div class="centre">
-              <h2>
-                Total number of defects
-                <div id="total">0</div>
-              </h2>
-            </div>
-            <div class="row">
-              <div class="number">
-                <h3>Open</h3>
-                <p id="open">0</p>
-              </div>
-              <div class="number">
-                <h3>High priority</h3>
-                <p id="high-priority">0</p>
-              </div>
-              <div class="number">
-                <h3>Closed</h3>
-                <p id="closed">0</p>
-              </div>
-            </div>
+      <div id="main-background">
+        <!---Add projects-->
+        <div class="project-name-popup" id="project-name-popup-id">
+          <div class="project-name-popup-header">
+            <div style="font-size: x-large; font-weight: bold">Add project</div>
+            <button id="project-name-popup-close-btn">&#10006;</button>
           </div>
-          <div id="issues-month-box">
-            <h2 style="text-align: center">Number of defects per month</h2>
-
-            <div>
-              <canvas id="date-bar-chart"></canvas>
-            </div>
+          <div class="project-name-popup-body">
+            <div style="font-weight: bold">Name</div>
+            <input
+              class="project-name-popup-input"
+              type="text"
+              onfocus="this.value=''"
+            />
+            <div id="project-name-popup-error"></div>
           </div>
+          <button id="project-name-popup-add">Add</button>
         </div>
+        <div id="overlay"></div>
 
-        <div id="main-container-right">
-          <div id="status-box">
-            <h2 style="text-align: center">Status</h2>
-            <div class="row">
-              <div class="number">
-                <h3>To assign</h3>
-                <p id="assign">0</p>
+        <div id="main-container">
+          <div id="main-container-left">
+            <div id="total-box">
+              <div class="centre">
+                <h2>
+                  Total number of defects
+                  <div id="total">0</div>
+                </h2>
               </div>
-              <div class="number">
-                <h3>To rectify</h3>
-                <p id="rectify">0</p>
-              </div>
-              <div class="number">
-                <h3>For inspection</h3>
-                <p id="inspection">0</p>
-              </div>
-              <div class="number">
-                <h3>Closed</h3>
-                <p id="status-closed">0</p>
+              <div class="row">
+                <div class="number">
+                  <h3>Open</h3>
+                  <p id="open">0</p>
+                </div>
+                <div class="number">
+                  <h3>High priority</h3>
+                  <p id="high-priority">0</p>
+                </div>
+                <div class="number">
+                  <h3>Closed</h3>
+                  <p id="closed">0</p>
+                </div>
               </div>
             </div>
-            <div>
-              <canvas id="status-pie-chart"></canvas>
+            <div id="issues-month-box">
+              <h2 style="text-align: center">Number of defects per month</h2>
+
+              <div>
+                <canvas id="date-bar-chart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div id="main-container-right">
+            <div id="status-box">
+              <h2 style="text-align: center">Status</h2>
+              <div class="row">
+                <div class="number">
+                  <h3>To assign</h3>
+                  <p id="assign">0</p>
+                </div>
+                <div class="number">
+                  <h3>To rectify</h3>
+                  <p id="rectify">0</p>
+                </div>
+                <div class="number">
+                  <h3>For inspection</h3>
+                  <p id="inspection">0</p>
+                </div>
+                <div class="number">
+                  <h3>Closed</h3>
+                  <p id="status-closed">0</p>
+                </div>
+              </div>
+              <div>
+                <canvas id="status-pie-chart"></canvas>
+              </div>
             </div>
           </div>
         </div>
