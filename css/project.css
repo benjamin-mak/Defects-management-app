@@ -8,7 +8,7 @@
 }
 
 #add-issue-btn:hover:before {
-  content: "Add issue";
+  content: "Add defect";
   font-size: large;
   cursor: pointer;
 }
